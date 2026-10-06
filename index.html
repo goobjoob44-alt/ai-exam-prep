@@ -1,0 +1,2303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Exam Playground & Comprehensive Study Guide</title>
+<meta name="description" content="Complete interactive Artificial Intelligence exam revision guide with core definitions, official textbook diagrams from course PDFs, animations, flip cards, search tree visualizer, logic proofs, and quizzes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- KaTeX for math formulas -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="if(window.renderMathInElement) renderMathInElement(document.body);"></script>
+<!-- AI Exam Tutor Widget -->
+<link rel="stylesheet" href="ai_tutor.css">
+<style>
+
+/* Custom Generated Title & Brand Logos */
+.title-icon {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 10px;
+  vertical-align: middle;
+  margin-right: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 18px rgba(108, 92, 231, 0.4);
+  display: inline-block;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.title-icon:hover {
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 0 6px 22px rgba(0, 206, 201, 0.6);
+}
+.nav-brand-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 8px;
+  vertical-align: middle;
+  margin-right: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 2px 12px rgba(108, 92, 231, 0.5);
+}
+
+/* ========== RESET & BASE ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a1a;--bg2:#111128;--surface:#161636;--surface2:#1f1f48;
+  --glass:rgba(255,255,255,.05);--glass-border:rgba(255,255,255,.1);
+  --glass-hover:rgba(255,255,255,.09);
+  --text:#e6e6f5;--text-dim:#9494b8;--text-bright:#ffffff;
+  --accent:#6c5ce7;--accent2:#a29bfe;--cyan:#00cec9;--pink:#fd79a8;
+  --gold:#fdcb6e;--green:#00b894;--red:#ff7675;--orange:#e17055;
+  --gradient:linear-gradient(135deg,#6c5ce7,#a29bfe,#00cec9);
+  --gradient-gold:linear-gradient(135deg,#fdcb6e,#e17055);
+  --gradient-pink:linear-gradient(135deg,#fd79a8,#6c5ce7);
+  --radius:16px;--radius-sm:10px;--radius-xs:6px;
+  --shadow:0 8px 32px rgba(0,0,0,.37);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.7}
+h1,h2,h3,h4,h5{font-weight:700;color:var(--text-bright);line-height:1.3}
+a{color:var(--accent2);text-decoration:none;transition:color .2s}
+a:hover{color:var(--cyan)}
+img{max-width:100%;border-radius:var(--radius);height:auto;display:block}
+
+/* ========== PARTICLES CANVAS ========== */
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ========== NAVBAR ========== */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(10,10,26,.85);border-bottom:1px solid var(--glass-border);
+  padding:.65rem 2rem;display:flex;align-items:center;justify-content:space-between;
+  transition:transform .3s ease, background .3s}
+.navbar.hidden{transform:translateY(-100%)}
+.nav-brand{font-size:1.18rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:flex;align-items:center;gap:.5rem}
+.nav-links{display:flex;gap:.3rem;flex-wrap:wrap;align-items:center}
+.nav-links a{padding:.42rem .75rem;border-radius:8px;font-size:.82rem;font-weight:500;color:var(--text-dim);transition:all .22s}
+.nav-links a:hover,.nav-links a.active{background:var(--glass);color:var(--text-bright)}
+.nav-links a.highlight{background:rgba(108,92,231,.25);color:var(--accent2);border:1px solid rgba(108,92,231,.4)}
+.nav-toggle{display:none;background:none;border:none;color:var(--text-bright);font-size:1.5rem;cursor:pointer;padding:.3rem}
+
+@media(max-width:960px){
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;background:rgba(10,10,26,.97);padding:1rem 1.5rem 1.5rem;border-bottom:1px solid var(--glass-border);box-shadow:0 15px 30px rgba(0,0,0,.6)}
+  .nav-links.open{display:flex}
+  .nav-toggle{display:block}
+}
+
+/* ========== SECTIONS ========== */
+section{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:5rem 1.5rem 3rem}
+.section-title{text-align:center;margin-bottom:2.6rem}
+.section-title h2{font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:.6rem;letter-spacing:-.5px}
+.section-title .badge{display:inline-block;padding:.3rem .95rem;border-radius:20px;font-size:.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:.8rem}
+.badge-purple{background:rgba(108,92,231,.2);color:var(--accent2);border:1px solid rgba(108,92,231,.35)}
+.badge-cyan{background:rgba(0,206,201,.15);color:var(--cyan);border:1px solid rgba(0,206,201,.35)}
+.badge-gold{background:rgba(253,203,110,.15);color:var(--gold);border:1px solid rgba(253,203,110,.35)}
+.badge-pink{background:rgba(253,121,168,.15);color:var(--pink);border:1px solid rgba(253,121,168,.35)}
+.badge-green{background:rgba(0,184,148,.15);color:var(--green);border:1px solid rgba(0,184,148,.35)}
+.section-title p{color:var(--text-dim);max-width:700px;margin:0 auto;font-size:.95rem}
+
+/* ========== GLASS CARD ========== */
+.glass{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--glass-border);border-radius:var(--radius);padding:1.6rem;transition:transform .28s,box-shadow .28s,border-color .28s}
+.glass:hover{border-color:rgba(162,155,254,.3)}
+
+/* ========== BUTTONS ========== */
+.btn{padding:.7rem 1.6rem;border-radius:12px;font-weight:600;font-size:.88rem;cursor:pointer;border:none;transition:all .25s;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-family:'Inter',sans-serif}
+.btn-primary{background:var(--gradient);color:#fff;box-shadow:0 4px 20px rgba(108,92,231,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(108,92,231,.55)}
+.btn-outline{background:transparent;color:var(--accent2);border:2px solid var(--accent2)}
+.btn-outline:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* ========== HERO ========== */
+#hero{min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:6rem}
+#hero h1{font-size:clamp(2.3rem,5.5vw,4.1rem);margin-bottom:1.1rem;letter-spacing:-1px}
+#hero h1 span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+#hero p.lead{font-size:clamp(1rem,2vw,1.15rem);color:var(--text-dim);max-width:720px;margin:0 auto 2.2rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1.2rem;max-width:820px;width:100%;margin-top:3.5rem}
+.stat{text-align:center;background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius-sm);padding:1.1rem}
+.stat .num{font-size:2.1rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat .label{font-size:.78rem;color:var(--text-dim);margin-top:.2rem;font-weight:500}
+
+/* ========== DEFINITION CARDS & CALLOUTS ========== */
+.def-box{background:rgba(26,26,62,.6);border:1px solid rgba(162,155,254,.25);border-left:4px solid var(--accent2);border-radius:var(--radius-sm);padding:1.1rem 1.3rem;margin:1.2rem 0}
+.def-box.gold{border-left-color:var(--gold)}
+.def-box.cyan{border-left-color:var(--cyan)}
+.def-box.green{border-left-color:var(--green)}
+.def-box.pink{border-left-color:var(--pink)}
+.def-title{font-size:.9rem;font-weight:700;color:var(--text-bright);display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.6px}
+.def-content{font-size:.88rem;color:var(--text);line-height:1.65}
+
+/* ========== DIAGRAM GALLERY & CARDS ========== */
+.diagram-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem;margin:1.8rem 0}
+.diagram-card{background:var(--surface);border:1px solid var(--glass-border);border-radius:var(--radius-sm);overflow:hidden;transition:transform .28s,border-color .28s,box-shadow .28s;cursor:pointer;display:flex;flex-direction:column}
+.diagram-card:hover{transform:translateY(-4px);border-color:var(--accent2);box-shadow:0 12px 35px rgba(108,92,231,.22)}
+.diagram-img-wrap{position:relative;background:#0d0d24;overflow:hidden;padding:.8rem;display:flex;align-items:center;justify-content:center}
+.diagram-img-wrap img{width:100%;height:auto;object-fit:contain;border-radius:8px;transition:transform .3s ease}
+.diagram-card:hover .diagram-img-wrap img{transform:scale(1.02)}
+.diagram-zoom-badge{position:absolute;top:.8rem;right:.8rem;background:rgba(10,10,26,.85);border:1px solid var(--glass-border);color:var(--accent2);border-radius:8px;padding:.25rem .6rem;font-size:.72rem;font-weight:600;display:flex;align-items:center;gap:.3rem;pointer-events:none}
+.diagram-meta{padding:1rem 1.2rem;display:flex;flex-direction:column;gap:.35rem;flex-grow:1}
+.diagram-title{font-size:.95rem;font-weight:700;color:var(--text-bright)}
+.diagram-desc{font-size:.8rem;color:var(--text-dim);line-height:1.5}
+.diagram-source{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--cyan);margin-top:auto;padding-top:.4rem;display:flex;align-items:center;gap:.3rem}
+
+/* Embedded Diagram in Agent Accordion */
+.agent-diagram-preview{margin-top:.8rem;background:rgba(255,255,255,0.03);border:1px solid var(--glass-border);border-radius:10px;padding:.6rem;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.agent-diagram-preview:hover{border-color:var(--accent2);box-shadow:0 0 15px rgba(108,92,231,0.25)}
+.agent-diagram-preview img{width:100%;border-radius:8px;background:#ffffff;box-shadow:0 2px 10px rgba(0,0,0,0.35)}
+.agent-diagram-tag{display:flex;justify-content:space-between;align-items:center;font-size:.74rem;color:var(--accent2);margin-top:.5rem;font-weight:600}
+
+/* LIGHTBOX MODAL */
+.diagram-modal{position:fixed;inset:0;background:rgba(6,6,20,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);z-index:200;display:none;align-items:center;justify-content:center;padding:1.5rem}
+.diagram-modal.open{display:flex;animation:fadeIn .25s ease}
+.diagram-modal-box{background:var(--surface);border:1px solid var(--accent);border-radius:var(--radius);max-width:960px;width:100%;max-height:92vh;overflow-y:auto;padding:1.8rem;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+.diagram-modal-close{position:absolute;top:1rem;right:1.2rem;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer;padding:.2rem .6rem;line-height:1}
+.diagram-modal-close:hover{color:var(--pink)}
+.diagram-modal-img{width:100%;border-radius:10px;background:#ffffff;padding:.5rem;border:1px solid var(--glass-border);margin:1rem 0;box-shadow:0 4px 25px rgba(0,0,0,0.5)}
+.diagram-modal-caption{font-size:.88rem;color:var(--text);line-height:1.6}
+.diagram-modal-source{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--gold);margin-top:.6rem}
+
+/* ========== MASTER GLOSSARY & SEARCH ========== */
+.glossary-controls{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
+.search-bar-wrap{position:relative;width:100%}
+.search-bar-wrap input{width:100%;background:var(--surface);border:2px solid var(--glass-border);border-radius:12px;padding:.85rem 1.2rem .85rem 2.8rem;color:#fff;font-size:.95rem;font-family:'Inter',sans-serif;outline:none;transition:border-color .25s,box-shadow .25s}
+.search-bar-wrap input:focus{border-color:var(--accent2);box-shadow:0 0 20px rgba(108,92,231,.25)}
+.search-bar-wrap .search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--text-dim);pointer-events:none}
+.filter-chips{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.filter-chip{padding:.4rem .9rem;border-radius:20px;font-size:.78rem;font-weight:600;background:var(--surface);border:1px solid var(--glass-border);color:var(--text-dim);cursor:pointer;transition:all .2s}
+.filter-chip:hover,.filter-chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.glossary-stats{font-size:.82rem;color:var(--text-dim);margin-top:.4rem}
+.glossary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1.2rem}
+.glossary-card{background:var(--surface);border:1px solid var(--glass-border);border-radius:var(--radius-sm);padding:1.3rem;display:flex;flex-direction:column;gap:.6rem;transition:transform .25s,border-color .25s}
+.glossary-card:hover{transform:translateY(-3px);border-color:var(--accent2)}
+.glossary-head{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+.glossary-term{font-size:1.05rem;font-weight:700;color:var(--text-bright)}
+.glossary-tag{padding:.2rem .6rem;border-radius:12px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.glossary-def{font-size:.85rem;color:var(--text);line-height:1.6}
+.glossary-formula{font-family:'JetBrains Mono',monospace;background:var(--surface2);padding:.45rem .7rem;border-radius:6px;font-size:.8rem;color:var(--cyan);border-left:3px solid var(--cyan);word-break:break-all}
+.glossary-eg{font-size:.8rem;color:var(--text-dim);border-top:1px dashed var(--glass-border);padding-top:.5rem;margin-top:.2rem}
+
+
+/* ========== TOPIC DEEP-DIVE BADGES & BUTTONS ========== */
+.topic-dive-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.3rem;
+  padding:.18rem .52rem;
+  border-radius:6px;
+  font-size:.72rem;
+  font-weight:600;
+  color:var(--cyan);
+  background:rgba(0,206,201,.1);
+  border:1px solid rgba(0,206,201,.28);
+  text-decoration:none!important;
+  transition:all .2s ease;
+  vertical-align:middle;
+  margin-left:.45rem;
+  white-space:nowrap;
+  cursor:pointer;
+  line-height:1.2;
+}
+.topic-dive-btn:hover{
+  background:rgba(0,206,201,.25);
+  color:#fff;
+  border-color:var(--cyan);
+  transform:translateY(-1px);
+  box-shadow:0 2px 10px rgba(0,206,201,.35);
+}
+.topic-dive-btn svg{
+  width:11px;
+  height:11px;
+  fill:currentColor;
+  flex-shrink:0;
+}
+
+/* ========== TIMELINE ========== */
+.timeline-img{border-radius:var(--radius);box-shadow:0 8px 40px rgba(0,0,0,.4);margin-bottom:2rem;width:100%}
+.timeline-track{position:relative;padding:1.5rem 0}
+.timeline-line{position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),var(--cyan),var(--pink));transform:translateX(-50%);border-radius:3px}
+.tl-item{display:flex;align-items:flex-start;margin-bottom:2.2rem;position:relative}
+.tl-item:nth-child(odd){flex-direction:row-reverse;text-align:right}
+.tl-item:nth-child(odd) .tl-content{margin-right:auto;margin-left:0;padding-right:2.8rem;padding-left:0}
+.tl-content{width:46%;padding-left:2.8rem}
+.tl-dot{position:absolute;left:50%;top:.55rem;width:16px;height:16px;border-radius:50%;border:3px solid var(--accent2);background:var(--bg);transform:translateX(-50%);z-index:2;transition:all .3s}
+.tl-item:hover .tl-dot{background:var(--accent);box-shadow:0 0 15px var(--accent);transform:translateX(-50%) scale(1.3)}
+.tl-year{font-size:1.15rem;font-weight:800;color:var(--accent2)}
+.tl-sub{font-size:.8rem;font-weight:600;color:var(--cyan);margin-bottom:.2rem}
+.tl-desc{font-size:.86rem;color:var(--text-dim);margin-top:.3rem;line-height:1.6}
+@media(max-width:768px){
+  .timeline-line{left:1rem}
+  .tl-item,.tl-item:nth-child(odd){flex-direction:row;text-align:left}
+  .tl-content,.tl-item:nth-child(odd) .tl-content{width:100%;padding-left:3rem;padding-right:0;margin:0}
+  .tl-dot{left:1rem}
+}
+
+/* ========== AGENT SECTION ========== */
+.agent-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:2rem;align-items:start}
+.agent-img-wrap{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.agent-img-wrap img{width:100%;display:block}
+.agent-cards{display:flex;flex-direction:column;gap:.9rem}
+.agent-card{cursor:pointer;position:relative;overflow:hidden;border:1px solid var(--glass-border);border-radius:var(--radius-sm);background:var(--surface);padding:1.1rem 1.3rem;transition:all .25s}
+.agent-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;border-radius:4px}
+.agent-card:nth-child(1)::before{background:var(--accent)}
+.agent-card:nth-child(2)::before{background:var(--cyan)}
+.agent-card:nth-child(3)::before{background:var(--pink)}
+.agent-card:nth-child(4)::before{background:var(--gold)}
+.agent-card:nth-child(5)::before{background:var(--green)}
+.agent-card-header{display:flex;align-items:center;justify-content:space-between;user-select:none}
+.agent-card h4{font-size:1rem;display:flex;align-items:center;gap:.6rem}
+.agent-card .toggle-icon{font-size:.9rem;color:var(--text-dim);transition:transform .3s}
+.agent-card.active .toggle-icon{transform:rotate(180deg)}
+.agent-card-body{display:none;padding-top:.8rem;border-top:1px dashed var(--glass-border);margin-top:.8rem}
+.agent-card.active .agent-card-body{display:block;animation:fadeIn .3s ease}
+.agent-detail-item{font-size:.82rem;color:var(--text);margin-bottom:.4rem;line-height:1.55}
+.agent-detail-item strong{color:var(--accent2)}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+
+/* PEAS TABLE */
+.peas-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.83rem}
+.peas-table th{background:var(--surface2);color:var(--accent2);padding:.75rem .9rem;text-align:left;font-weight:700}
+.peas-table td{padding:.75rem .9rem;border-bottom:1px solid var(--glass-border);color:var(--text);line-height:1.5}
+.peas-table tr:hover td{background:var(--glass)}
+.peas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-bottom:1.5rem}
+.peas-card{background:var(--surface);border-radius:var(--radius-sm);padding:1rem;border-left:3px solid var(--accent)}
+.peas-card h5{font-size:.85rem;color:var(--accent2);margin-bottom:.3rem;text-transform:uppercase}
+.peas-card p{font-size:.82rem;color:var(--text-dim)}
+
+@media(max-width:860px){.agent-grid{grid-template-columns:1fr}}
+
+/* ENVIRONMENT DIMENSIONS */
+.env-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:1.2rem}
+.env-card{background:var(--surface);border:1px solid var(--glass-border);border-radius:var(--radius-sm);padding:1.1rem;transition:border-color .25s}
+.env-card:hover{border-color:var(--accent2)}
+.env-card h5{font-size:.92rem;color:var(--text-bright);margin-bottom:.4rem;display:flex;align-items:center;justify-content:space-between}
+.env-card p{font-size:.82rem;color:var(--text-dim);line-height:1.6}
+.env-card .contrast{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--cyan);margin-top:.4rem;display:block}
+
+/* ========== SEARCH SECTION ========== */
+.search-demo{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:2rem;align-items:start}
+.search-canvas-wrap{background:var(--surface);border-radius:var(--radius);padding:1.2rem;border:1px solid var(--glass-border);box-shadow:var(--shadow);min-width:0;overflow:hidden;box-sizing:border-box}
+#searchCanvas{width:100%!important;max-width:100%!important;height:410px;border-radius:var(--radius-sm);display:block;background:var(--bg2);box-sizing:border-box}
+.search-controls{display:flex;gap:.5rem;margin-top:1.1rem;flex-wrap:wrap;align-items:center}
+.search-controls .btn{font-size:.82rem;padding:.5rem 1.05rem;transition:all .2s ease}
+.search-controls .btn.active-algo{outline:2px solid #fff;box-shadow:0 0 15px var(--accent2);transform:scale(1.03)}
+.search-log-box{margin-top:1rem;background:var(--surface2);border-radius:var(--radius-sm);padding:.9rem 1.1rem;border:1px solid var(--glass-border);font-family:'JetBrains Mono',monospace;font-size:.8rem}
+.search-log-title{color:var(--gold);font-weight:700;margin-bottom:.3rem;display:flex;align-items:center;justify-content:space-between}
+.search-log-text{color:var(--text);font-size:.8rem;line-height:1.55;min-height:50px}
+.formula{font-family:'JetBrains Mono',monospace;background:var(--surface2);padding:.8rem 1rem;border-radius:var(--radius-sm);margin:.6rem 0;font-size:.88rem;color:var(--cyan);border-left:3px solid var(--cyan)}
+@media(max-width:960px){.search-demo{grid-template-columns:minmax(0,1fr)}}
+
+/* ========== MEMORY BOUNDED ========== */
+.memory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem}
+.mem-card{text-align:left;display:flex;flex-direction:column;justify-content:space-between}
+.mem-card h4{margin-bottom:.3rem}
+.mem-bar{height:22px;background:var(--surface2);border-radius:11px;overflow:hidden;margin:.8rem 0;position:relative}
+.mem-fill{height:100%;border-radius:11px;transition:width 1.5s cubic-bezier(.4,0,.2,1);width:0}
+.mem-fill.astar{background:linear-gradient(90deg,#ff7675,#e17055)}
+.mem-fill.ida{background:linear-gradient(90deg,var(--accent),var(--cyan))}
+.mem-fill.rbfs{background:linear-gradient(90deg,var(--pink),var(--gold))}
+.mem-fill.sma{background:linear-gradient(90deg,var(--green),var(--cyan))}
+.mem-label{font-size:.76rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;display:flex;justify-content:space-between}
+.compare-table{width:100%;border-collapse:collapse;margin-top:1.5rem;font-size:.82rem}
+.compare-table th{background:var(--surface2);color:var(--accent2);padding:.8rem .6rem;text-align:center;font-weight:700}
+.compare-table td{padding:.8rem .6rem;text-align:center;border-bottom:1px solid var(--glass-border);color:var(--text);line-height:1.5}
+.compare-table tr:hover td{background:var(--glass)}
+
+/* ========== KNOWLEDGE REPRESENTATION ========== */
+.kr-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+.kr-img-wrap img{box-shadow:0 8px 30px rgba(0,0,0,.4);border-radius:var(--radius)}
+.kr-types{display:flex;flex-direction:column;gap:.9rem}
+.kr-type{background:var(--surface);border:1px solid var(--glass-border);border-radius:var(--radius-sm);padding:1.1rem}
+.kr-type h4{display:flex;align-items:center;gap:.5rem;font-size:.95rem;margin-bottom:.3rem}
+.kr-type p{font-size:.83rem;color:var(--text-dim);line-height:1.6}
+.chain-compare{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.chain-card{text-align:left}
+.chain-card h4{margin-bottom:.5rem;font-size:1.05rem}
+.chain-card ul{list-style:none;font-size:.83rem;color:var(--text);text-align:left;line-height:1.6}
+.chain-card ul li{padding:.4rem 0;border-bottom:1px solid var(--glass-border)}
+.chain-card ul li::before{content:'▸ ';color:var(--accent2);font-weight:bold}
+@media(max-width:860px){.kr-layout,.chain-compare{grid-template-columns:1fr}}
+
+/* ========== LOGIC FLIP CARDS ========== */
+.logic-tabs{display:flex;gap:.5rem;margin-bottom:1.8rem;flex-wrap:wrap;justify-content:center}
+.logic-tab{padding:.5rem 1.2rem;border-radius:10px;font-size:.82rem;font-weight:600;background:var(--surface);border:1px solid var(--glass-border);color:var(--text-dim);cursor:pointer;transition:all .22s}
+.logic-tab:hover,.logic-tab.active{background:var(--pink);color:#fff;border-color:var(--pink)}
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.flip-card{perspective:1000px;min-height:230px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,.2,.2,1)}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.3rem;text-align:center;box-sizing:border-box}
+.flip-front{background:var(--surface);border:1px solid var(--glass-border)}
+.flip-front h4{font-size:1.02rem;margin-bottom:.5rem;color:var(--accent2)}
+.flip-front .flip-icon{font-size:2.2rem;margin-bottom:.4rem}
+.flip-front p{font-size:.84rem;color:var(--text-dim)}
+.flip-back{background:linear-gradient(135deg,var(--surface),var(--surface2));border:1.5px solid var(--accent);transform:rotateY(180deg)}
+.flip-back h4{font-size:.92rem;color:var(--green);margin-bottom:.4rem}
+.flip-back p{font-size:.84rem;color:var(--text);line-height:1.5}
+.flip-hint{text-align:center;margin-top:1.2rem;font-size:.82rem;color:var(--text-dim)}
+
+/* ========== FORMULA SHEET ========== */
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.2rem}
+.formula-card{font-family:'JetBrains Mono',monospace;font-size:.82rem}
+.formula-card h4{font-family:'Inter',sans-serif;margin-bottom:.6rem;font-size:.94rem;color:var(--gold);display:flex;align-items:center;gap:.4rem}
+.formula-card .eq{background:var(--surface2);padding:.6rem .8rem;border-radius:8px;margin:.35rem 0;color:var(--cyan);border-left:3px solid var(--gold);word-break:break-all}
+.truth-matrix-wrap{overflow-x:auto;margin-top:1.5rem}
+.truth-table{width:100%;border-collapse:collapse;font-size:.8rem;text-align:center;font-family:'JetBrains Mono',monospace}
+.truth-table th{background:var(--surface2);color:var(--accent2);padding:.55rem}
+.truth-table td{padding:.5rem;border-bottom:1px solid var(--glass-border);color:var(--text)}
+
+/* ========== QUIZ SECTION ========== */
+.quiz-container{max-width:760px;margin:0 auto}
+.quiz-progress{display:flex;align-items:center;gap:1rem;margin-bottom:1.8rem}
+.quiz-bar{flex:1;height:10px;background:var(--surface2);border-radius:10px;overflow:hidden}
+.quiz-bar-fill{height:100%;background:var(--gradient);border-radius:10px;transition:width .35s ease}
+.quiz-count{font-size:.85rem;color:var(--text-dim);font-weight:600;white-space:nowrap}
+.quiz-question{font-size:1.15rem;margin-bottom:1.5rem;font-weight:600;line-height:1.5}
+.quiz-options{display:flex;flex-direction:column;gap:.75rem}
+.quiz-opt{background:var(--surface);border:2px solid var(--glass-border);border-radius:var(--radius-sm);padding:1rem 1.2rem;cursor:pointer;transition:all .2s;font-size:.9rem;color:var(--text);display:flex;align-items:center;gap:.7rem}
+.quiz-opt:hover{border-color:var(--accent2);background:var(--glass-hover)}
+.quiz-opt.correct{border-color:var(--green);background:rgba(0,184,148,.15);color:#fff}
+.quiz-opt.wrong{border-color:var(--red);background:rgba(255,118,117,.15);color:#fff}
+.quiz-opt.disabled{pointer-events:none;opacity:.7}
+.quiz-feedback{margin-top:1.2rem;padding:1.1rem;border-radius:var(--radius-sm);font-size:.88rem;display:none;line-height:1.55}
+.quiz-feedback.show{display:block;animation:fadeIn .3s ease}
+.quiz-feedback.correct-fb{background:rgba(0,184,148,.12);border:1px solid var(--green);color:var(--green)}
+.quiz-feedback.wrong-fb{background:rgba(255,118,117,.12);border:1px solid var(--red);color:var(--red)}
+.quiz-next{margin-top:1.3rem;display:none}
+.quiz-next.show{display:inline-flex}
+.quiz-score{text-align:center;display:none;padding:2rem 1rem}
+.quiz-score h3{font-size:2.2rem;margin-bottom:1rem}
+.quiz-score .score-num{font-size:4.2rem;font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ========== PDF LINKS ========== */
+.pdf-links{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.8rem}
+.pdf-link{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .85rem;border-radius:8px;font-size:.76rem;font-weight:600;background:rgba(253,203,110,.1);color:var(--gold);border:1px solid rgba(253,203,110,.25);transition:all .22s;text-decoration:none}
+.pdf-link:hover{background:rgba(253,203,110,.22);transform:translateY(-2px);box-shadow:0 4px 12px rgba(253,203,110,.2)}
+.pdf-link svg{width:14px;height:14px;fill:currentColor;flex-shrink:0}
+
+/* ========== FOOTER ========== */
+footer{text-align:center;padding:3.5rem 1.5rem;color:var(--text-dim);font-size:.84rem;position:relative;z-index:1;border-top:1px solid var(--glass-border);background:rgba(10,10,26,.85)}
+footer p{margin-bottom:.5rem}
+
+/* ========== SCROLL REVEAL ========== */
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+</style>
+</head>
+<body>
+
+<!-- ====== PARTICLES CANVAS ====== -->
+<canvas id="particles"></canvas>
+
+<!-- ====== NAVBAR ====== -->
+<nav class="navbar" id="navbar">
+  <a href="#hero" class="nav-brand"><img src="images/ai_brand_logo.jpg" alt="Logo" class="nav-brand-logo">AI Exam Hub</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+  <div class="nav-links" id="navLinks">
+    <a href="#hero">Home</a>
+    <a href="#definitions" class="highlight">📖 Glossary</a>
+    <a href="#timeline">History</a>
+    <a href="#agents">Agents & PEAS</a>
+    <a href="#search">Search & Heuristics</a>
+    <a href="#memory">Memory-Bounded</a>
+    <a href="#knowledge">Knowledge Rep</a>
+    <a href="#logic">Logic & Proofs</a>
+    <a href="#formulas">Formulas</a>
+    <a href="#quiz">Quiz (20Q)</a>
+    <a href="topic.html" target="_blank" style="color:var(--cyan);font-weight:700;display:inline-flex;align-items:center;gap:.3rem">📚 Deep-Dives ↗</a>
+    <a href="AI_Exam_Complete_Explainer_Guide.pdf" target="_blank" style="color:var(--gold);font-weight:700;display:inline-flex;align-items:center;gap:.3rem">📥 Explainer PDF</a>
+  </div>
+</nav>
+
+<!-- ====== HERO ====== -->
+<section id="hero">
+  <div class="reveal">
+    <span class="badge badge-purple">ADBU B.Tech CSE — Artificial Intelligence (CS701)</span>
+    <h1>Master <span>AI Concepts</span> & Ace Your Exam</h1>
+    <p class="lead">Complete revision playground with interactive search simulations, official textbook diagrams directly extracted from course PDFs, formal definitions for all 8 syllabus modules, PEAS framework case studies, and logic puzzle cards.</p>
+    <div class="hero-btns">
+      <a href="AI_Exam_Complete_Explainer_Guide.pdf" target="_blank" class="btn btn-primary" style="background:linear-gradient(135deg,#e17055,#fdcb6e);box-shadow:0 4px 20px rgba(225,112,85,.4)">📥 Download 25-Page Explainer PDF</a>
+      <button class="btn btn-primary" onclick="document.getElementById('definitions').scrollIntoView({behavior:'smooth'})">📖 Master Glossary & Definitions</button>
+      <button class="btn btn-outline" onclick="document.getElementById('agents').scrollIntoView({behavior:'smooth'})">🤖 View Agent Diagrams</button>
+      <button class="btn btn-outline" onclick="document.getElementById('search').scrollIntoView({behavior:'smooth'})">🔍 Search Trees & Proofs</button>
+      <button class="btn btn-outline" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">🎯 Take 20Q Exam Quiz</button>
+      <a href="topic.html" target="_blank" class="btn btn-outline" style="border-color:var(--cyan);color:var(--cyan)">📖 38 Topic Deep-Dives ↗</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="num" data-target="8">0</div><div class="label">Course PDFs Covered</div></div>
+      <div class="stat"><div class="num" data-target="36">0</div><div class="label">Key Exam Definitions</div></div>
+      <div class="stat"><div class="num" data-target="24">0</div><div class="label">Official Course Diagrams</div></div>
+      <div class="stat"><div class="num" data-target="20">0</div><div class="label">Practice Questions</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== COMPREHENSIVE DEFINITIONS SECTION ====== -->
+<section id="definitions">
+  <div class="section-title reveal">
+    <span class="badge badge-cyan">Exam High-Yield</span>
+    <h2><img src="images/icon_glossary.jpg" alt="Glossary" class="title-icon">Master AI Glossary & Key Definitions</h2>
+    <p>Precise definitions, mathematical notations, and intuition for every core topic tested in the syllabus.</p>
+  </div>
+
+  <div class="glass reveal" style="margin-bottom:2rem">
+    <div class="glossary-controls">
+      <div class="search-bar-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="glossarySearch" placeholder="Search definitions (e.g., Admissibility, PEAS, Heuristic, Thrashing, Refractory, WFF, Horn Clause)..." oninput="filterGlossary()">
+      </div>
+      <div class="filter-chips" id="filterChips">
+        <button class="filter-chip active" data-cat="all" onclick="setCategory('all',this)">All Topics (36)</button>
+        <button class="filter-chip" data-cat="foundations" onclick="setCategory('foundations',this)">Foundations & DIKW</button>
+        <button class="filter-chip" data-cat="agents" onclick="setCategory('agents',this)">Agents & PEAS</button>
+        <button class="filter-chip" data-cat="search" onclick="setCategory('search',this)">Search & Heuristics</button>
+        <button class="filter-chip" data-cat="memory" onclick="setCategory('memory',this)">Memory-Bounded</button>
+        <button class="filter-chip" data-cat="kr" onclick="setCategory('kr',this)">Knowledge & Rules</button>
+        <button class="filter-chip" data-cat="logic" onclick="setCategory('logic',this)">Logic & Proofs</button>
+      </div>
+      <div class="glossary-stats" id="glossaryStats">Showing 36 definitions</div>
+    </div>
+
+    <div class="glossary-grid" id="glossaryGrid">
+      <!-- Glossary Cards injected via JavaScript -->
+    </div>
+  </div>
+</section>
+
+<!-- ====== TIMELINE ====== -->
+<section id="timeline">
+  <div class="section-title reveal">
+    <span class="badge badge-purple">PDF 1: Foundations & History</span>
+    <h2><img src="images/icon_timeline.jpg" alt="History" class="title-icon">History & Evolution of AI</h2>
+    <p>From mathematical neurons in 1943 to deep learning and foundation models.</p>
+    <div class="pdf-links">
+      <a class="pdf-link" href="pdfs/1_Introduction_Agent.pdf" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> 1_Introduction_Agent.pdf</a>
+    </div>
+  </div>
+
+  <div class="def-box cyan reveal">
+    <div class="def-title">💡 Core Definition: Four Dimensions of AI <a href="topic.html?topic=foundations_ai" target="_blank" class="topic-dive-btn" title="Open complete deep-dive explainer">📖 Deep Dive ↗</a></div>
+    <div class="def-content">
+      According to Russell & Norvig, AI definitions span across two primary axes: <strong>Thought Process vs. Behavior</strong> and <strong>Human Fidelity vs. Rationality</strong>:
+      <ul style="margin-top:.4rem;padding-left:1.2rem">
+        <li><strong>Thinking Humanly:</strong> Cognitive Science — empirical modeling of human cognitive processes.</li>
+        <li><strong>Acting Humanly:</strong> Turing Test (1950) — natural language, KR, automated reasoning, machine learning.</li>
+        <li><strong>Thinking Rationally:</strong> Laws of Thought — formal syllogisms and logic to derive uncontestable inferences.</li>
+        <li><strong>Acting Rationally:</strong> Rational Agent Approach — choosing actions that maximize expected performance given available percepts.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Official PDF 1 Diagrams Gallery -->
+  <div class="glass reveal" style="margin-bottom:2.5rem">
+    <h3 style="margin-bottom:.4rem">🖼️ Official Course Diagrams — Foundations (PDF 1)</h3>
+    <p style="font-size:.84rem;color:var(--text-dim);margin-bottom:1rem">Click any diagram to inspect in high-resolution full-screen mode.</p>
+    <div class="diagram-grid">
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/ai_sense_reason_act.png', 'AI Sense, Reason, Act Framework', 'Artificial Intelligence model: a program that perceives through sensors, reasons over domain knowledge, and executes actions. From 1_Introduction_Agent.pdf, Slide 7.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/ai_sense_reason_act.png" alt="AI Sense Reason Act">
+          <div class="diagram-zoom-badge">🔍 Click to Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">Sense, Reason, Act Model <a href="topic.html?topic=foundations_ai" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+          <div class="diagram-desc">The closed-loop interaction cycle defining intelligent agents interacting with the physical world.</div>
+          <div class="diagram-source">📄 PDF 1, Slide 7</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/ai_four_approaches.png', 'The 4 Approaches to AI Matrix', 'Russell & Norvig 2x2 matrix: Thinking Humanly vs Acting Humanly and Thinking Rationally vs Acting Rationally. From 1_Introduction_Agent.pdf, Slide 10.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/ai_four_approaches.png" alt="Four Approaches to AI">
+          <div class="diagram-zoom-badge">🔍 Click to Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">Four Approaches to AI Matrix <a href="topic.html?topic=foundations_ai" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+          <div class="diagram-desc">Standard 2×2 classification matrix comparing Human Performance against Rationality standards.</div>
+          <div class="diagram-source">📄 PDF 1, Slide 10</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/turing_test_setup.png', 'Turing Test Operational Setup', 'Alan Turing 1950 setup with Human Interrogator in room C evaluating responses from Machine A and Human B. From 1_Introduction_Agent.pdf, Slide 11.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/turing_test_setup.png" alt="Turing Test Setup">
+          <div class="diagram-zoom-badge">🔍 Click to Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">The Turing Test Setup (1950) <a href="topic.html?topic=turing_test" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+          <div class="diagram-desc">Operational test determining if a computer can fool a human interrogator in conversation.</div>
+          <div class="diagram-source">📄 PDF 1, Slide 11</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="diagram-img-wrap reveal" style="margin-bottom:2.5rem;cursor:pointer" onclick="openDiagramModal('images/icon_timeline.jpg', 'AI Chronological Evolution & Quantum Timeline', 'From the 1950 Turing Test & 1956 Dartmouth conference to Expert Systems, Deep Learning, and Modern LLMs.')">
+    <img src="images/icon_timeline.jpg" alt="AI Chronological Evolution Timeline" style="width:100%;max-height:460px;object-fit:cover;border-radius:14px;border:1px solid rgba(255,255,255,0.15);box-shadow:0 8px 32px rgba(108,92,231,0.35);">
+    <div class="diagram-zoom-badge">🔍 Click to Expand Timeline</div>
+  </div>
+
+  <div class="timeline-track reveal">
+    <div class="timeline-line"></div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">1943 – Gestation of AI <a href="topic.html?topic=ai_history" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+        <div class="tl-sub">McCulloch & Pitts Neuron / Turing</div>
+        <div class="tl-desc">Warren McCulloch & Walter Pitts propose the first mathematical model of artificial neurons. Alan Turing publishes "Computing Machinery and Intelligence" (1950), proposing the imitation game (Turing Test).</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">1956 – The Birth of AI <a href="topic.html?topic=ai_history" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+        <div class="tl-sub">Dartmouth College Workshop</div>
+        <div class="tl-desc">Organized by John McCarthy, Marvin Minsky, Claude Shannon, and Nathaniel Rochester. John McCarthy coins the term <em>"Artificial Intelligence"</em>. AI officially becomes an independent academic discipline.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">1952–1969 – Early Enthusiasm</div>
+        <div class="tl-sub">Logic Theorist & GPS</div>
+        <div class="tl-desc">Newell & Simon construct the Logic Theorist and the General Problem Solver (GPS). Arthur Samuel builds a self-learning Checkers program that beats human masters. High optimism sweeps computer science.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">1966–1973 – Dose of Reality <a href="topic.html?topic=ai_history" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+        <div class="tl-sub">Combinatorial Explosion & AI Winter I</div>
+        <div class="tl-desc">Early microworld systems fail to scale to real-world complexity (combinatorial explosion). Minsky & Papert publish <em>Perceptrons</em> (1969) demonstrating single-layer neural networks cannot compute XOR. Government funding freezes.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">1969–1979 – Expert Systems</div>
+        <div class="tl-sub">Knowledge is Power</div>
+        <div class="tl-desc">Shift from general search to domain-specific knowledge. DENDRAL infers molecular structures from mass spectra. MYCIN diagnoses blood infections using ~600 probabilistic rules, performing at specialist doctor level.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">1980–1988 – Industry Boom</div>
+        <div class="tl-sub">Commercialization & Fifth Generation</div>
+        <div class="tl-desc">Commercial expert systems (e.g. XCON for DEC) save corporations millions. Japan launches the massive Fifth Generation Computer Project focused on Prolog and parallel logic processing.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">1986–Present – Neural Renaissance</div>
+        <div class="tl-sub">Backpropagation & Statistical ML</div>
+        <div class="tl-desc">Rumelhart, Hinton, and Williams rediscover and popularize the Backpropagation algorithm for multi-layer perceptrons, overcoming the XOR barrier and paving the path for connectionist AI.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-year">2012–Present – Deep Learning & LLMs</div>
+        <div class="tl-sub">Big Data, GPUs, Transformers</div>
+        <div class="tl-desc">AlexNet (2012) wins ImageNet; DeepMind's AlphaGo defeats world champions (2016); Transformers, GPT, and generative foundation models achieve superhuman milestones in vision, language, and coding.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== AGENTS ====== -->
+<section id="agents">
+  <div class="section-title reveal">
+    <span class="badge badge-cyan">PDF 2: Agent Architecture & Environment</span>
+    <h2><img src="images/icon_agents.jpg" alt="Agents" class="title-icon">Intelligent Agents & The PEAS Framework <a href="topic.html?topic=peas" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h2>
+    <p>Everything you need to know about Agent Architectures, Rationality, and Environment dimensions.</p>
+    <div class="pdf-links">
+      <a class="pdf-link" href="pdfs/2_Agent%20Architecture%20and%20environment.pdf" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> 2_Agent Architecture and environment.pdf</a>
+    </div>
+  </div>
+
+  <div class="def-box gold reveal">
+    <div class="def-title">📐 Formal Definition: Intelligent Agent & Rationality <a href="topic.html?topic=rationality" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+    <div class="def-content">
+      An <strong>Agent</strong> is anything that perceives its environment through <strong>Sensors</strong> and acts upon that environment through <strong>Actuators</strong>:
+      <div style="font-family:'JetBrains Mono',monospace;margin:.4rem 0;color:var(--gold);font-weight:600">
+        Agent = Architecture (Hardware / Devices) + Program (Software Implementation)
+      </div>
+      The abstract mathematical mapping from percept sequences to actions is called the <strong>Agent Function</strong>: $f: P^* \to A$.<br>
+      A <strong>Rational Agent</strong> selects an action that is expected to maximize its performance measure, based on:
+      (1) Percept sequence to date, (2) Built-in prior domain knowledge, and (3) Actions available.
+      <br><em>Note: Rationality is NOT omniscience; omniscience implies knowing actual future outcomes in advance!</em>
+    </div>
+  </div>
+
+  <!-- Agent-Environment Diagram Showcase -->
+  <div class="glass reveal" style="margin-bottom:2rem;cursor:pointer" onclick="openDiagramModal('images/pdf_diagrams/agent_environment_loop.png', 'General Agent-Environment Interaction Model', 'The fundamental sensing, deliberation, and actuation feedback loop between an Intelligent Agent and its surrounding Environment. From 2_Agent Architecture and environment.pdf, Slide 6.')">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem">
+      <h4 style="color:var(--text-bright)">🖼️ The Fundamental Agent-Environment Interaction Loop <a href="topic.html?topic=agent_concept" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+      <span style="font-size:.74rem;color:var(--cyan);font-family:'JetBrains Mono'">🔍 Click to Expand (PDF 2, Slide 6)</span>
+    </div>
+    <img src="images/pdf_diagrams/agent_environment_loop.png" alt="Agent-Environment Loop" style="border:1px solid var(--glass-border);border-radius:10px;max-height:360px;width:100%;object-fit:contain;background:#ffffff;padding:.5rem;box-shadow:0 4px 20px rgba(0,0,0,0.3)">
+  </div>
+
+  <div class="agent-grid reveal">
+    <div class="agent-img-wrap">
+      <img src="images/icon_agents.jpg" alt="Intelligent Agent Cybernetic Core" style="border-radius:14px;box-shadow:0 8px 32px rgba(108,92,231,0.4);border:1px solid rgba(255,255,255,0.15);cursor:pointer;width:100%;object-fit:cover;" onclick="openDiagramModal('images/icon_agents.jpg', 'Cybernetic Intelligent Agent Architecture', 'High-detail HUD visualization illustrating Percept Sequence, Optical Sensors, Actuator Gears, and World State Feedback Loop.')">
+    </div>
+    <div class="agent-cards">
+      <div class="agent-card active" onclick="toggleAgent(this)">
+        <div class="agent-card-header">
+          <h4><span class="icon">⚡</span> 1. Simple Reflex Agent <a href="topic.html?topic=simple_reflex" target="_blank" class="topic-dive-btn" onclick="event.stopPropagation()">📖 Deep Dive ↗</a></h4>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="agent-card-body">
+          <div class="agent-detail-item"><strong>Core Principle:</strong> Selects actions based <em>only</em> on the current percept, ignoring history of percepts.</div>
+          <div class="agent-detail-item"><strong>Mechanism:</strong> Condition-Action rules (e.g., <code>IF car-in-front-is-braking THEN initiate-braking</code>).</div>
+          <div class="agent-detail-item"><strong>Strengths & Limits:</strong> Extremely fast; fails completely if environment is partially observable (causes infinite loops).</div>
+          <div class="agent-detail-item"><strong>Exam Example:</strong> Standard bimetallic strip room thermostat; basic automated vacuum cleaner with bump sensors.</div>
+          <div class="agent-diagram-preview" onclick="event.stopPropagation(); openDiagramModal('images/pdf_diagrams/simple_reflex_agent.png', 'Simple Reflex Agent Architecture', 'Condition-action rules operating directly on current percepts without memory. From PDF 2, Slide 11.')">
+            <img src="images/pdf_diagrams/simple_reflex_agent.png" alt="Simple Reflex Agent Diagram">
+            <div class="agent-diagram-tag"><span>📐 Official Architecture Diagram</span> <span>🔍 Zoom (PDF 2, Slide 11)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" onclick="toggleAgent(this)">
+        <div class="agent-card-header">
+          <h4><span class="icon">🧠</span> 2. Model-Based Reflex Agent <a href="topic.html?topic=model_based" target="_blank" class="topic-dive-btn" onclick="event.stopPropagation()">📖 Deep Dive ↗</a></h4>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="agent-card-body">
+          <div class="agent-detail-item"><strong>Core Principle:</strong> Maintains an internal <em>state</em> to track unobserved aspects of the current world.</div>
+          <div class="agent-detail-item"><strong>Required Knowledge:</strong> (1) How the world evolves independently of the agent, and (2) How the agent's actions affect the world.</div>
+          <div class="agent-detail-item"><strong>Strengths & Limits:</strong> Handles partial observability by updating internal memory even when sensors cannot see everything.</div>
+          <div class="agent-detail-item"><strong>Exam Example:</strong> Reversing a car with rear blind spots by remembering obstacles detected 2 seconds ago.</div>
+          <div class="agent-diagram-preview" onclick="event.stopPropagation(); openDiagramModal('images/pdf_diagrams/model_based_agent.png', 'Model-Based Reflex Agent Architecture', 'Maintains internal state reflecting history and unobserved world aspects. From PDF 2, Slide 13.')">
+            <img src="images/pdf_diagrams/model_based_agent.png" alt="Model-Based Agent Diagram">
+            <div class="agent-diagram-tag"><span>📐 Official Architecture Diagram</span> <span>🔍 Zoom (PDF 2, Slide 13)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" onclick="toggleAgent(this)">
+        <div class="agent-card-header">
+          <h4><span class="icon">🎯</span> 3. Goal-Based Agent <a href="topic.html?topic=goal_based" target="_blank" class="topic-dive-btn" onclick="event.stopPropagation()">📖 Deep Dive ↗</a></h4>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="agent-card-body">
+          <div class="agent-detail-item"><strong>Core Principle:</strong> Combines current state knowledge with explicit <em>goal descriptions</em> (desirable situations).</div>
+          <div class="agent-detail-item"><strong>Mechanism:</strong> Employs Search and Planning algorithms to compute a sequence of future actions to reach the goal.</div>
+          <div class="agent-detail-item"><strong>Strengths:</strong> Highly flexible; if the destination changes, simply replanning with new goal works without altering rule base.</div>
+          <div class="agent-detail-item"><strong>Exam Example:</strong> GPS Navigation system planning a route to the airport; 8-puzzle and chess solvers.</div>
+          <div class="agent-diagram-preview" onclick="event.stopPropagation(); openDiagramModal('images/pdf_diagrams/goal_based_agent.png', 'Goal-Based Agent Architecture', 'Incorporates explicit goals to evaluate action sequences. From PDF 2, Slide 15.')">
+            <img src="images/pdf_diagrams/goal_based_agent.png" alt="Goal-Based Agent Diagram">
+            <div class="agent-diagram-tag"><span>📐 Official Architecture Diagram</span> <span>🔍 Zoom (PDF 2, Slide 15)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" onclick="toggleAgent(this)">
+        <div class="agent-card-header">
+          <h4><span class="icon">⭐</span> 4. Utility-Based Agent <a href="topic.html?topic=utility_based" target="_blank" class="topic-dive-btn" onclick="event.stopPropagation()">📖 Deep Dive ↗</a></h4>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="agent-card-body">
+          <div class="agent-detail-item"><strong>Core Principle:</strong> Uses a real-valued <em>utility function</em> $U(s)$ that maps world states to real numbers (degrees of happiness/satisfaction).</div>
+          <div class="agent-detail-item"><strong>Decision Criterion:</strong> Maximum Expected Utility (MEU) — balances trade-offs when conflicting goals exist (e.g. speed vs. safety vs. fuel economy).</div>
+          <div class="agent-detail-item"><strong>Exam Example:</strong> Automated taxi route planner optimizing fare income, passenger ride smoothness, and traffic delay risk.</div>
+          <div class="agent-diagram-preview" onclick="event.stopPropagation(); openDiagramModal('images/pdf_diagrams/utility_based_agent.png', 'Utility-Based Agent Architecture', 'Evaluates states via a utility function for multi-objective trade-offs. From PDF 2, Slide 17.')">
+            <img src="images/pdf_diagrams/utility_based_agent.png" alt="Utility-Based Agent Diagram">
+            <div class="agent-diagram-tag"><span>📐 Official Architecture Diagram</span> <span>🔍 Zoom (PDF 2, Slide 17)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" onclick="toggleAgent(this)">
+        <div class="agent-card-header">
+          <h4><span class="icon">📚</span> 5. Learning Agent <a href="topic.html?topic=learning_agent" target="_blank" class="topic-dive-btn" onclick="event.stopPropagation()">📖 Deep Dive ↗</a></h4>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="agent-card-body">
+          <div class="agent-detail-item"><strong>4 Distinct Components:</strong>
+            <ul style="padding-left:1rem;margin-top:.2rem">
+              <li><strong>Learning Element:</strong> Responsible for making improvements based on experience.</li>
+              <li><strong>Performance Element:</strong> Responsible for selecting external actions (equivalent to previous agent models).</li>
+              <li><strong>Critic:</strong> Evaluates agent's behavior against an external performance standard.</li>
+              <li><strong>Problem Generator:</strong> Suggests exploratory actions leading to new, informative experiences (exploration vs. exploitation).</li>
+            </ul>
+          </div>
+          <div class="agent-detail-item"><strong>Exam Example:</strong> Self-driving car system that improves braking precision after driving on icy roads.</div>
+          <div class="agent-diagram-preview" onclick="event.stopPropagation(); openDiagramModal('images/pdf_diagrams/learning_agent.png', 'Learning Agent Architecture', 'Separated into Learning Element, Performance Element, Critic, and Problem Generator. From PDF 2, Slide 19.')">
+            <img src="images/pdf_diagrams/learning_agent.png" alt="Learning Agent Diagram">
+            <div class="agent-diagram-tag"><span>📐 Official Architecture Diagram</span> <span>🔍 Zoom (PDF 2, Slide 19)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PEAS -->
+  <div class="glass reveal" style="margin-top:2.5rem">
+    <h3 style="margin-bottom:.5rem">📋 PEAS Framework — Standard Exam Case Studies <a href="topic.html?topic=peas" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h3>
+    <p style="font-size:.85rem;color:var(--text-dim);margin-bottom:1.2rem">Always state all four components clearly when formulating an agent specification.</p>
+
+    <div class="peas-grid">
+      <div class="peas-card">
+        <h5>P — Performance Measure</h5>
+        <p>The objective criterion used to evaluate how successfully the agent operates in its environment.</p>
+      </div>
+      <div class="peas-card" style="border-left-color:var(--cyan)">
+        <h5>E — Environment</h5>
+        <p>The external context, obstacles, and entities with which the agent interacts.</p>
+      </div>
+      <div class="peas-card" style="border-left-color:var(--gold)">
+        <h5>A — Actuators</h5>
+        <p>The hardware and mechanical output mechanisms through which the agent performs actions.</p>
+      </div>
+      <div class="peas-card" style="border-left-color:var(--pink)">
+        <h5>S — Sensors</h5>
+        <p>The perceptual devices and data streams through which the agent perceives its environment.</p>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table class="peas-table">
+        <thead>
+          <tr>
+            <th>Agent System</th>
+            <th>Performance Measure (P)</th>
+            <th>Environment (E)</th>
+            <th>Actuators (A)</th>
+            <th>Sensors (S)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>🚕 Autonomous Taxi</strong></td>
+            <td>Safety, trip speed, legal compliance, passenger comfort, profits</td>
+            <td>Road network, traffic, pedestrians, weather conditions, customers</td>
+            <td>Steering, accelerator, braking, horn, turn signals, display</td>
+            <td>Cameras, LiDAR, radar, GPS, speedometer, odometer, engine sensors</td>
+          </tr>
+          <tr>
+            <td><strong>🏥 Medical Diagnostician</strong></td>
+            <td>Healthy patient, minimized healthcare costs, diagnosis accuracy</td>
+            <td>Patient, hospital clinical staff, insurance systems</td>
+            <td>Screen displays, test orders, prescription generation, referral notices</td>
+            <td>Keyboards (symptoms, vital signs, lab findings, patient history)</td>
+          </tr>
+          <tr>
+            <td><strong>🛰️ Satellite Image Analysis</strong></td>
+            <td>Classification accuracy, image resolution, discovery rate</td>
+            <td>Downlink satellite telemetry, orbit paths, cloud cover</td>
+            <td>Display recommendations, antenna repointing, alert dispatches</td>
+            <td>Multi-spectral optical sensors, infrared detectors, orbital telemetry</td>
+          </tr>
+          <tr>
+            <td><strong>🤖 Part-Picking Robot</strong></td>
+            <td>Percentage of parts correctly sorted, sorting speed, undamaged parts</td>
+            <td>Conveyor belt with mixed parts, storage bins, factory floor</td>
+            <td>Jointed robotic arm, pneumatic suction gripper, conveyor motors</td>
+            <td>Stereo vision cameras, tactile grip pressure sensors, proximity sensors</td>
+          </tr>
+          <tr>
+            <td><strong>🧹 Smart Vacuum Cleaner</strong></td>
+            <td>Cleanliness score, battery consumption, minimal noise, room coverage</td>
+            <td>Floor, carpets, furniture, stairs, dust/debris, pets</td>
+            <td>Drive wheels, spinning brushes, vacuum suction motor, indicator beeps</td>
+            <td>Infrared cliff detector, bumper switches, optical dirt sensors, gyroscope</td>
+          </tr>
+          <tr>
+            <td><strong>🎓 Interactive English Tutor</strong></td>
+            <td>Maximized student test scores, student engagement, adaptive pacing</td>
+            <td>Set of students, curriculum syllabus, question banks</td>
+            <td>Display exercises, personalized explanations, hints, grading reports</td>
+            <td>Keyboard/mouse inputs, speech recognition microphone, answer timestamps</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ENVIRONMENT DIMENSIONS -->
+  <div class="glass reveal" style="margin-top:2rem">
+    <h3 style="margin-bottom:.5rem">🌍 The 7 Environment Dimensions (Properties) <a href="topic.html?topic=environments" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h3>
+    <p style="font-size:.85rem;color:var(--text-dim);margin-bottom:1rem">The nature of the environment dictates which agent architecture and search algorithm can be applied.</p>
+    
+    <div class="env-grid">
+      <div class="env-card">
+        <h5>1. Observability <span class="badge badge-purple" style="margin:0;font-size:.65rem">Perception</span></h5>
+        <p><strong>Fully Observable:</strong> Agent's sensors provide access to the complete state of the environment at all points in time (no internal memory needed).<br><strong>Partially Observable:</strong> Sensor noise, blind spots, or missing data require the agent to maintain an internal world model.</p>
+        <span class="contrast">Chess (Fully) vs. Poker / Driving (Partially)</span>
+      </div>
+
+      <div class="env-card">
+        <h5>2. Determinism <span class="badge badge-cyan" style="margin:0;font-size:.65rem">Transitions</span></h5>
+        <p><strong>Deterministic:</strong> The next state is completely determined by the current state and the agent's executed action.<br><strong>Stochastic:</strong> Uncertainty and randomness introduce probabilities.<br><strong>Strategic:</strong> Environment is deterministic except for actions of other rival agents.</p>
+        <span class="contrast">Chess / Sudoku (Deterministic) vs. Backgammon / Driving (Stochastic)</span>
+      </div>
+
+      <div class="env-card">
+        <h5>3. Episodic vs. Sequential <span class="badge badge-gold" style="margin:0;font-size:.65rem">Time Memory</span></h5>
+        <p><strong>Episodic:</strong> The agent's experience is divided into independent atomic episodes. Current choice does NOT affect future episodes.<br><strong>Sequential:</strong> The current decision affects all subsequent future decisions (demands long-term planning).</p>
+        <span class="contrast">Part Defect Classifier (Episodic) vs. Chess / Driving (Sequential)</span>
+      </div>
+
+      <div class="env-card">
+        <h5>4. Dynamism <span class="badge badge-pink" style="margin:0;font-size:.65rem">Deliberation</span></h5>
+        <p><strong>Static:</strong> The environment does not change while the agent is deliberating.<br><strong>Dynamic:</strong> The world changes continuously as the agent thinks.<br><strong>Semi-Dynamic:</strong> Environment itself does not change, but the agent's performance score decreases as time passes.</p>
+        <span class="contrast">Crossword (Static) vs. Driving (Dynamic) vs. Timed Chess (Semi-Dynamic)</span>
+      </div>
+
+      <div class="env-card">
+        <h5>5. Continuity <span class="badge badge-green" style="margin:0;font-size:.65rem">State Space</span></h5>
+        <p><strong>Discrete:</strong> A finite, distinct, clearly countable number of states, percepts, and actions.<br><strong>Continuous:</strong> Smoothly varying values across real numbers (continuous speed, angle, coordinate locations).</p>
+        <span class="contrast">Chess / Tic-Tac-Toe (Discrete) vs. Self-driving Car (Continuous)</span>
+      </div>
+
+      <div class="env-card">
+        <h5>6. Agent Count <span class="badge badge-purple" style="margin:0;font-size:.65rem">Interaction</span></h5>
+        <p><strong>Single-Agent:</strong> Agent solves the task completely by itself without other interacting reasoning entities.<br><strong>Multi-Agent:</strong> Other reasoning agents exist, either <em>Competitive</em> (zero-sum, like chess) or <em>Cooperative</em> (collaborative navigation).</p>
+        <span class="contrast">Crossword / Solitaire (Single) vs. Chess / Stock Market (Multi-Agent)</span>
+      </div>
+
+      <div class="env-card">
+        <h5>7. Environmental Rules <span class="badge badge-cyan" style="margin:0;font-size:.65rem">Physics</span></h5>
+        <p><strong>Known:</strong> The physics, outcome transitions, and transition model of the environment are fully given to the agent.<br><strong>Unknown:</strong> The agent must explore and learn how the environment responds before it can plan.</p>
+        <span class="contrast">Standard Board Game (Known) vs. Exploring an Alien World (Unknown)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SEARCH ALGORITHMS ====== -->
+<section id="search">
+  <div class="section-title reveal">
+    <span class="badge badge-gold">PDF 4: Informed / Heuristic Search</span>
+    <h2><img src="images/icon_search.jpg" alt="Search" class="title-icon">Heuristic Search & The Treasure Hunt Visualizer</h2>
+    <p>Understand how Greedy Best-First, Uniform Cost (UCS), and A* Search traverse a problem space.</p>
+    <div class="pdf-links">
+      <a class="pdf-link" href="pdfs/4_%20Informed%20Search%20Algorithms.pdf" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> 4_Informed Search Algorithms.pdf</a>
+    </div>
+  </div>
+
+  <div class="def-box gold reveal">
+    <div class="def-title">📐 Key Concept: Heuristic Functions & Optimality <a href="topic.html?topic=heuristics" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+    <div class="def-content">
+      A <strong>Heuristic Function</strong> $h(n)$ estimates the cheapest path cost from node $n$ to the closest goal state.
+      <ul style="margin-top:.4rem;padding-left:1.2rem">
+        <li><strong>Admissibility:</strong> An admissible heuristic <em>never overestimates</em> the true cost to reach the goal: $0 \le h(n) \le h^*(n)$. Tree-search $A^*$ is guaranteed to be optimal if $h(n)$ is admissible.</li>
+        <li><strong>Consistency (Monotonicity):</strong> For every node $n$ and every successor $n'$ generated by action $a$: $h(n) \le c(n, a, n') + h(n')$. Consistency satisfies the triangle inequality. Graph-search $A^*$ is optimal if $h(n)$ is consistent.</li>
+        <li><strong>Rule of Thumb:</strong> <em>Consistency $\implies$ Admissibility</em>, but the converse is not always true!</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="search-demo reveal">
+    <div class="search-canvas-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem">
+        <h4 style="font-size:.95rem;color:var(--text-bright)">Search Tree Simulation <a href="topic.html?topic=astar_search" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+        <span style="font-size:.76rem;color:var(--cyan);font-family:'JetBrains Mono'">Goal G1 (Optimal g=6) vs Goal G2 (Suboptimal g=7)</span>
+      </div>
+      <canvas id="searchCanvas"></canvas>
+      <div class="search-controls">
+        <button class="btn btn-primary" id="btn-greedy" onclick="runSearch('greedy')">▶ Greedy Best-First</button>
+        <button class="btn btn-primary" id="btn-astar" style="background:linear-gradient(135deg,#00b894,#00cec9)" onclick="runSearch('astar')">★ A* Search</button>
+        <button class="btn btn-outline" id="btn-ucs" onclick="runSearch('ucs')">💰 Uniform Cost (UCS)</button>
+        <button class="btn btn-outline" id="btn-reset" onclick="resetSearch()">↺ Reset</button>
+      </div>
+
+      <div class="search-log-box" id="searchLogBox">
+        <div class="search-log-title">
+          <span id="searchLogHeader">Interactive Step Analysis</span>
+          <span id="searchLogAlgo" style="color:var(--cyan);font-size:.75rem">Ready</span>
+        </div>
+        <div class="search-log-text" id="searchLogText">
+          Select an algorithm above to watch node expansion step-by-step. Notice how Greedy gets fooled by B's tempting heuristic h=2, whereas A* evaluates f(n) = g(n) + h(n) to recover the optimal path!
+        </div>
+      </div>
+    </div>
+
+    <div class="search-info">
+      <div class="glass">
+        <h4>🟢 Greedy Best-First Search <a href="topic.html?topic=greedy_search" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+        <div class="formula">Evaluation Function: f(n) = h(n)</div>
+        <p style="font-size:.84rem;color:var(--text);line-height:1.6">
+          <strong>Behavior:</strong> Expands the node that appears closest to the goal based solely on the heuristic $h(n)$.
+          <br><strong>Evaluation:</strong> Not optimal, not complete in infinite spaces (can get stuck in loops). Time: $O(b^m)$, Space: $O(b^m)$ (keeps all nodes in memory).
+        </p>
+      </div>
+
+      <div class="glass" style="border-left:3px solid var(--green)">
+        <h4>⭐ A* Search (The Benchmark) <a href="topic.html?topic=astar_search" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+        <div class="formula" style="border-left-color:var(--green);color:var(--green)">Evaluation Function: f(n) = g(n) + h(n)</div>
+        <p style="font-size:.84rem;color:var(--text);line-height:1.6">
+          <strong>Behavior:</strong> Combines exact accumulated path cost $g(n)$ from start with estimated heuristic cost $h(n)$ to goal.
+          <br><strong>Evaluation:</strong> Optimal and complete with admissible / consistent heuristics.
+          <br><strong>The Fatal Flaw:</strong> Memory complexity is $O(b^d)$ — exhausts all RAM within minutes!
+        </p>
+      </div>
+
+      <div class="glass">
+        <h4>💰 Uniform Cost Search (Dijkstra's) <a href="topic.html?topic=ucs_search" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+        <div class="formula">Evaluation Function: f(n) = g(n)</div>
+        <p style="font-size:.84rem;color:var(--text);line-height:1.6">
+          <strong>Behavior:</strong> Expands the node with the lowest path cost $g(n)$ so far, ignoring distance to goal ($h(n)=0$).
+          <br><strong>Evaluation:</strong> Complete and optimal if step costs $\ge \epsilon > 0$. Can be very slow because it expands contours uniformly in all directions.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Official PDF 4 Search Diagrams Gallery -->
+  <div class="glass reveal" style="margin-top:2.5rem">
+    <h3 style="margin-bottom:.4rem">🖼️ Official Lecture Search Trees & Proof Diagrams (PDF 4)</h3>
+    <p style="font-size:.84rem;color:var(--text-dim);margin-bottom:1rem">Click any diagram to inspect the actual lecture slides and mathematical proof sketches.</p>
+    <div class="diagram-grid">
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/romania_map_costs.png', 'Romania Map Problem with Step Costs in km', 'The classic Russell & Norvig benchmark map with step costs in km and straight-line heuristic distances h_SLD to Bucharest. From 4_ Informed Search Algorithms.pdf, Slide 17.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/romania_map_costs.png" alt="Romania Map with Costs">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">Romania Map & Heuristics <a href="topic.html?topic=romania_problem" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+          <div class="diagram-desc">Standard route planning problem with step distances and straight-line heuristic values $h_{SLD}$.</div>
+          <div class="diagram-source">📄 PDF 4, Slide 17</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/greedy_search_tree.png', 'Greedy Best-First Search on Romania Tree', 'Step-by-step tree expansion for Greedy Search. Arad -> Sibiu -> Fagaras -> Bucharest. From 4_ Informed Search Algorithms.pdf, Slide 22.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/greedy_search_tree.png" alt="Greedy Search Tree">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">Greedy Search Tree Expansion</div>
+          <div class="diagram-desc">Traces how Greedy expands nodes purely using $h(n)$, showing potential sub-optimality.</div>
+          <div class="diagram-source">📄 PDF 4, Slide 22</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/astar_search_tree.png', 'A* Search on Romania Tree', 'Step-by-step tree expansion of A* search on the Romania map, balancing g(n) + h(n). From 4_ Informed Search Algorithms.pdf, Slide 30.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/astar_search_tree.png" alt="A* Search Tree">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">A* Search Tree Expansion</div>
+          <div class="diagram-desc">Shows how $A^*$ expands nodes along optimal contours, avoiding expensive paths.</div>
+          <div class="diagram-source">📄 PDF 4, Slide 30</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/astar_optimality_contours.png', 'Optimality of A* Proof via Contours', 'Visual proof showing concentric contours of increasing f-cost. Proves optimal goal G is selected before suboptimal G2. From 4_ Informed Search Algorithms.pdf, Slide 33.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/astar_optimality_contours.png" alt="A* Optimality Contours">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">A* Optimality Contour Proof <a href="topic.html?topic=admissibility" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+          <div class="diagram-desc">Concentric $f$-cost bands demonstrating why suboptimal goal $G_2$ cannot be expanded before $G$.</div>
+          <div class="diagram-source">📄 PDF 4, Slide 33</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/heuristic_consistency_triangle.png', 'Consistent Heuristics Triangle Inequality', 'Geometric proof of consistency: h(n) <= c(n, a, n\') + h(n\'). Guarantees f(n) is monotonically non-decreasing. From 4_ Informed Search Algorithms.pdf, Slide 34.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/heuristic_consistency_triangle.png" alt="Consistent Heuristics Triangle">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">Consistency Triangle Inequality <a href="topic.html?topic=consistency" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+          <div class="diagram-desc">Formal proof diagram showing $h(n) \le c(n, a, n') + h(n')$, ensuring monotonic $f$-costs.</div>
+          <div class="diagram-source">📄 PDF 4, Slide 34</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="diagram-img-wrap reveal" style="margin-top:2.5rem;cursor:pointer" onclick="openDiagramModal('images/icon_search.jpg', '3D Heuristic Search Space & A* Evaluation', 'Illuminated search graph with START and GOAL nodes, f(n)=g(n)+h(n) cost functions, and optimal path highlighted by optical focus.')">
+    <img src="images/icon_search.jpg" alt="Heuristic Search Space Visualizer" style="width:100%;max-height:460px;object-fit:cover;border-radius:14px;border:1px solid rgba(255,255,255,0.15);box-shadow:0 8px 40px rgba(0,0,0,0.5);">
+    <div class="diagram-zoom-badge">🔍 Click to Zoom 3D Search Tree</div>
+  </div>
+</section>
+
+<!-- ====== MEMORY BOUNDED SEARCH ====== -->
+<section id="memory">
+  <div class="section-title reveal">
+    <span class="badge badge-pink">PDF 5: Memory-Bounded Search</span>
+    <h2><img src="images/icon_memory.jpg" alt="Memory" class="title-icon">Memory-Bounded Heuristic Search</h2>
+    <p>How IDA*, RBFS, and SMA* conquer the exponential $O(b^d)$ space bottleneck of A*.</p>
+    <div class="pdf-links">
+      <a class="pdf-link" href="pdfs/5_Memory%20Bounded%20Search.pdf" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> 5_Memory Bounded Search.pdf</a>
+    </div>
+  </div>
+
+  <div class="def-box pink reveal">
+    <div class="def-title">⚠️ The $A^*$ Memory Crisis <a href="topic.html?topic=memory_bounded" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+    <div class="def-content">
+      $A^*$ keeps all generated nodes in the Open List (frontier) and Closed List. With branching factor $b=10$ and depth $d=10$, $A^*$ generates $\approx 10^{10}$ nodes ($\approx 100$ Gigabytes of RAM)! Long before compute time runs out, $A^*$ crashes due to Out-Of-Memory. Memory-bounded algorithms enforce strict memory caps without discarding optimality.
+    </div>
+  </div>
+
+  <div class="memory-grid reveal">
+    <div class="glass mem-card">
+      <div>
+        <h4>💥 Standard A* Search <a href="topic.html?topic=memory_bounded" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+        <div class="mem-bar"><div class="mem-fill astar" data-width="100"></div></div>
+        <div class="mem-label"><span>Space: O(b<sup>d</sup>)</span> <span style="color:var(--red)">💥 Crashes RAM!</span></div>
+        <p style="font-size:.83rem;color:var(--text);margin-top:.6rem;line-height:1.55">Stores every expanded state in memory. Complete & optimal, but fundamentally limited by storage capacity.</p>
+      </div>
+    </div>
+
+    <div class="glass mem-card">
+      <div>
+        <h4>⚡ IDA* (Iterative Deepening A*) <a href="topic.html?topic=ida_star" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+        <div class="mem-bar"><div class="mem-fill ida" data-width="15"></div></div>
+        <div class="mem-label"><span>Space: O(b·d)</span> <span style="color:var(--cyan)">✨ Linear</span></div>
+        <p style="font-size:.83rem;color:var(--text);margin-top:.6rem;line-height:1.55">Analogous to IDDFS, but the cutoff threshold is the $f$-cost limit. Each iteration runs a modified DFS until node $f(n) > \text{limit}$. The next iteration's limit is the smallest $f$-cost that exceeded the previous limit.</p>
+      </div>
+    </div>
+
+    <div class="glass mem-card">
+      <div>
+        <h4>🔄 RBFS (Recursive Best-First) <a href="topic.html?topic=rbfs" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+        <div class="mem-bar"><div class="mem-fill rbfs" data-width="22"></div></div>
+        <div class="mem-label"><span>Space: O(b·d)</span> <span style="color:var(--pink)">✨ Linear</span></div>
+        <p style="font-size:.83rem;color:var(--text);margin-top:.6rem;line-height:1.55">Mimics best-first search in linear memory. Maintains an $f\text{-limit}$ representing the best alternative path available at any ancestor. If current path $f > \text{limit}$, it backs up forgotten child values and switches (can cause <em>thrashing</em>).</p>
+      </div>
+    </div>
+
+    <div class="glass mem-card">
+      <div>
+        <h4>🧠 SMA* (Simplified Memory-Bounded) <a href="topic.html?topic=sma_star" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+        <div class="mem-bar"><div class="mem-fill sma" data-width="85"></div></div>
+        <div class="mem-label"><span>Space: O(M)</span> <span style="color:var(--green)">🧠 Uses All RAM M</span></div>
+        <p style="font-size:.83rem;color:var(--text);margin-top:.6rem;line-height:1.55">Uses all allocated memory buffer $M$. When full, drops the <strong>shallowest, highest $f$-cost (worst)</strong> node and backs up its value to its parent. Optimal if $M \ge d^*$ (optimal path fits in memory).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Official PDF 5 Memory Bounded Diagrams Gallery -->
+  <div class="glass reveal" style="margin-top:2.5rem">
+    <h3 style="margin-bottom:.4rem">🖼️ Official Lecture Memory-Bounded Progression Diagrams (PDF 5)</h3>
+    <p style="font-size:.84rem;color:var(--text-dim);margin-bottom:1rem">Click any diagram to view the exact IDA*, RBFS, and SMA* step-by-step slide progressions.</p>
+    <div class="diagram-grid">
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/ida_star_contours.png', 'IDA* Contour Search Diagram', 'IDA* expanding contours bounded by f-limit cutoffs. Each iteration extends to the next lowest exceeded f-value. From 5_Memory Bounded Search.pdf, Slide 4.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/ida_star_contours.png" alt="IDA* Contours">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">IDA* Contour Search</div>
+          <div class="diagram-desc">Depth-first search bounded by $f$-cost limits, saving memory at the cost of re-exploration.</div>
+          <div class="diagram-source">📄 PDF 5, Slide 4</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/rbfs_search_tree.png', 'RBFS Search Progression on Romania', 'RBFS tracking backed-up f-costs for alternative branches on the Arad-Sibiu-Rimnicu Vilcea-Fagaras tree. From 5_Memory Bounded Search.pdf, Slide 8.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/rbfs_search_tree.png" alt="RBFS Search Tree">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">RBFS Backed-Up Value Tree</div>
+          <div class="diagram-desc">Illustrates how RBFS backtracks when $f > f\text{-limit}$ and records forgotten node evaluations.</div>
+          <div class="diagram-source">📄 PDF 5, Slide 8</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/sma_star_stage1.png', 'SMA* Stage 1: Expanding Best Leaf', 'SMA* progression with memory buffer M=3. Expands best leaf until memory capacity is reached. From 5_Memory Bounded Search.pdf, Slide 11.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/sma_star_stage1.png" alt="SMA* Stage 1">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">SMA* Stage 1: Filling Memory</div>
+          <div class="diagram-desc">Shows SMA* allocating all available node slots in memory capacity $M$.</div>
+          <div class="diagram-source">📄 PDF 5, Slide 11</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/sma_star_stage2.png', 'SMA* Stage 2: Dropping Worst Leaf', 'Memory is full: SMA* drops the shallowest, highest f-cost leaf node and backs up its value to parent. From 5_Memory Bounded Search.pdf, Slide 13.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/sma_star_stage2.png" alt="SMA* Stage 2">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">SMA* Stage 2: Node Eviction</div>
+          <div class="diagram-desc">The key eviction step: dropping the worst leaf and preserving its $f$-value in the ancestor.</div>
+          <div class="diagram-source">📄 PDF 5, Slide 13</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/sma_star_stage3.png', 'SMA* Stage 3: Node Regeneration & Goal', 'SMA* regenerating a dropped leaf after alternate branches prove worse. Optimal goal discovery. From 5_Memory Bounded Search.pdf, Slide 15.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/sma_star_stage3.png" alt="SMA* Stage 3">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">SMA* Stage 3: Regeneration</div>
+          <div class="diagram-desc">Demonstrates parent node regenerating forgotten children to reach the optimal goal.</div>
+          <div class="diagram-source">📄 PDF 5, Slide 15</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass reveal" style="margin-top:2.5rem;overflow-x:auto">
+    <h3 style="margin-bottom:.8rem">📊 Comprehensive Search Complexity & Property Comparison</h3>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Algorithm</th>
+          <th>Time Complexity</th>
+          <th>Space Complexity</th>
+          <th>Complete?</th>
+          <th>Optimal?</th>
+          <th>Key Mechanism</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--accent2);font-weight:700">A* Search</td>
+          <td>$O(b^d)$</td>
+          <td style="color:var(--red);font-weight:700">$O(b^d)$ (Exponential)</td>
+          <td>✅ Yes</td>
+          <td>✅ Yes (if admissible)</td>
+          <td>Maintains Open & Closed sets sorted by $f(n)=g(n)+h(n)$</td>
+        </tr>
+        <tr>
+          <td style="color:var(--accent2);font-weight:700">IDA*</td>
+          <td>$O(b^d)$ (worse if fine-grained costs)</td>
+          <td style="color:var(--green);font-weight:700">$O(b \cdot d)$ (Linear)</td>
+          <td>✅ Yes</td>
+          <td>✅ Yes</td>
+          <td>DFS with $f\text{-limit}$ cutoff; re-explores tree each iteration</td>
+        </tr>
+        <tr>
+          <td style="color:var(--accent2);font-weight:700">RBFS</td>
+          <td>$O(b^d)$</td>
+          <td style="color:var(--green);font-weight:700">$O(b \cdot d)$ (Linear)</td>
+          <td>✅ Yes</td>
+          <td>✅ Yes</td>
+          <td>Recursive backtrack when $f > f\text{-limit}$; saves backed-up $f$ in parent</td>
+        </tr>
+        <tr>
+          <td style="color:var(--accent2);font-weight:700">SMA*</td>
+          <td>$O(b^d)$</td>
+          <td style="color:var(--cyan);font-weight:700">$O(M)$ (Exact memory buffer)</td>
+          <td>If $M \ge d$</td>
+          <td>If $M \ge d^*$</td>
+          <td>Drops worst leaf node from memory; backs up its $f$-value into parent</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ====== KNOWLEDGE REPRESENTATION ====== -->
+<section id="knowledge">
+  <div class="section-title reveal">
+    <span class="badge badge-green">PDF KR: Knowledge Representation</span>
+    <h2><img src="images/icon_knowledge.jpg" alt="Knowledge" class="title-icon">Knowledge Representation, Inference & Prolog</h2>
+    <p>How artificial intelligence systems structure, store, and reason over domain facts and rules.</p>
+    <div class="pdf-links">
+      <a class="pdf-link" href="pdfs/1_Knowledge_Representations.pdf" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> 1_Knowledge_Representations.pdf</a>
+    </div>
+  </div>
+
+  <div class="def-box green reveal">
+    <div class="def-title">💡 The DIKW Hierarchy & KR Properties <a href="topic.html?topic=dikw" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></div>
+    <div class="def-content">
+      <strong>Data:</strong> Disconnected raw symbols/facts $\to$ <strong>Information:</strong> Structured data with relational context $\to$ <strong>Knowledge:</strong> Understanding patterns and principles ("knowing how/that") $\to$ <strong>Wisdom:</strong> Evaluating reasons ("knowing why").<br>
+      A successful KR system must fulfill <strong>4 Core Requirements:</strong>
+      <ol style="padding-left:1.2rem;margin-top:.3rem">
+        <li><strong>Representational Adequacy:</strong> Ability to represent all kinds of knowledge required in the domain.</li>
+        <li><strong>Inferential Adequacy:</strong> Ability to manipulate representational structures to derive new knowledge.</li>
+        <li><strong>Inferential Efficiency:</strong> Ability to direct inference mechanisms into the most productive paths.</li>
+        <li><strong>Acquisitional Efficiency:</strong> Ability to easily acquire new knowledge from experts or automated learning.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Official PDF KR Diagrams Gallery -->
+  <div class="glass reveal" style="margin-bottom:2.5rem">
+    <h3 style="margin-bottom:.4rem">🖼️ Official Course Diagrams — Knowledge Representation (PDF KR)</h3>
+    <p style="font-size:.84rem;color:var(--text-dim);margin-bottom:1rem">Click any diagram to inspect the slides from Prof. Chakraborty's course notes.</p>
+    <div class="diagram-grid">
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/dikw_knowledge_model.png', 'The DIKW Hierarchy Model (Bellinger 1980)', 'Data, Information, Knowledge, and Wisdom pyramid model. Compares understanding (knowing that vs knowing how vs knowing why). From 1_Knowledge_Representations.pdf, Slide 5.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/dikw_knowledge_model.png" alt="DIKW Model">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">The DIKW Pyramid Model</div>
+          <div class="diagram-desc">Shows how raw data transforms into actionable knowledge and evaluative wisdom.</div>
+          <div class="diagram-source">📄 PDF KR, Slide 5</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/semantic_net_inheritable.png', 'Inheritable Knowledge: Semantic Network', 'Semantic Network hierarchy with Person, Male, Adult, and Peter nodes, showing IsA and Instance links with attribute inheritance. From 1_Knowledge_Representations.pdf, Slide 17.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/semantic_net_inheritable.png" alt="Semantic Network">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">Inheritable Semantic Network</div>
+          <div class="diagram-desc">Nodes represent entities; directed edges represent IsA (class) and Instance (member) links.</div>
+          <div class="diagram-source">📄 PDF KR, Slide 17</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/production_rule_architecture.png', 'Production Rule System Architecture', 'Architecture of a production system: Working Memory (facts), Rule Base (IF-THEN rules), and Inference Engine (match-resolve-act cycle). From 1_Knowledge_Representations.pdf, Slide 71.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/production_rule_architecture.png" alt="Production System Architecture">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">Production Rule Architecture</div>
+          <div class="diagram-desc">Working Memory + Rule Base + Inference Engine with Conflict Resolution cycle.</div>
+          <div class="diagram-source">📄 PDF KR, Slide 71</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/forward_vs_backward_chaining.png', 'Forward vs. Backward Chaining Comparison', 'Side-by-side comparative table and workflow distinguishing data-driven forward chaining from goal-driven backward chaining. From 1_Knowledge_Representations.pdf, Slide 77.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/forward_vs_backward_chaining.png" alt="Forward vs Backward Chaining">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">Forward vs. Backward Chaining</div>
+          <div class="diagram-desc">Official comparative summary table of reasoning directions, suitability, and algorithms.</div>
+          <div class="diagram-source">📄 PDF KR, Slide 77</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/forward_backward_representation.png', 'Forward and Backward Representation Mapping', 'Formal mapping between facts in the real world and their formal representations in a knowledge base. From 1_Knowledge_Representations.pdf, Slide 13.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/forward_backward_representation.png" alt="Forward and Backward Representation">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">Facts ↔ Representation Mapping</div>
+          <div class="diagram-desc">Formal representation function mapping physical facts into logical knowledge representations.</div>
+          <div class="diagram-source">📄 PDF KR, Slide 13</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/knowledge_types_relationship.png', 'Relationship Among Knowledge Types', 'Relationship diagram linking Declarative Knowledge, Procedural Knowledge, and Meta-Knowledge. From 1_Knowledge_Representations.pdf, Slide 9.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/knowledge_types_relationship.png" alt="Knowledge Types Relationship">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">Knowledge Types Relationship</div>
+          <div class="diagram-desc">Typology map organizing declarative, procedural, heuristic, and meta-knowledge.</div>
+          <div class="diagram-source">📄 PDF KR, Slide 9</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kr-layout reveal">
+    <div class="kr-img-wrap">
+      <img src="images/icon_knowledge.jpg" alt="DIKW Knowledge Pyramid & Semantic Network" style="border-radius:14px;box-shadow:0 8px 32px rgba(0,206,201,0.3);border:1px solid rgba(255,255,255,0.15);cursor:pointer;width:100%;object-fit:cover;" onclick="openDiagramModal('images/icon_knowledge.jpg', 'DIKW Knowledge Pyramid & Ontology Network', 'Data-Information-Knowledge-Wisdom pyramid with interconnected semantic concept nodes, inheritance links, and relation frames.')">
+    </div>
+    <div class="kr-types">
+      <div class="kr-type">
+        <h4>📊 1. Relational Knowledge <a href="topic.html?topic=knowledge_types" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+        <p>Knowledge stored in relational database tables with rows (entities) and columns (attributes). Simple, highly standardized, but possesses weak inferential capabilities beyond SQL joins.</p>
+      </div>
+      <div class="kr-type">
+        <h4>🕸️ 2. Inheritable Knowledge (Semantic Nets & Frames) <a href="topic.html?topic=semantic_nets" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+        <p>Entities organized as nodes in an inheritance hierarchy. Edges represent relationships: <code>IsA</code> (class subset relation) and <code>Instance</code> (class member relation). Properties automatically propagate down the hierarchy (e.g., <em>Canary IsA Bird $\implies$ Canary has wings</em>).</p>
+      </div>
+      <div class="kr-type">
+        <h4>🧮 3. Inferential Knowledge (Predicate Logic) <a href="topic.html?topic=quant_rules" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+        <p>Expressed as formal logic sentences with constants, variables, predicates, and quantifiers ($\forall, \exists$). Allows rigorous deductive automated reasoning via the Resolution Refutation Principle.</p>
+      </div>
+      <div class="kr-type">
+        <h4>⚙️ 4. Procedural Knowledge (Production Systems) <a href="topic.html?topic=forward_chaining" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+        <p>Rules expressed as <code>IF &lt;condition&gt; THEN &lt;action&gt;</code>. Used in expert systems where the <em>Inference Engine</em> matches conditions against <em>Working Memory</em> facts to trigger actions.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Forward vs Backward Chaining -->
+  <div class="chain-compare reveal">
+    <div class="glass chain-card" style="border-top:3.5px solid var(--cyan)">
+      <h4 style="color:var(--cyan)">⏩ Forward Chaining (Data-Driven) <a href="topic.html?topic=forward_chaining" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+      <p style="font-size:.84rem;color:var(--text-dim);margin-bottom:.6rem">Bottom-up reasoning: Starts with known facts in Working Memory, fires matching rules, and adds conclusions until goal is reached.</p>
+      <ul>
+        <li><strong>Starting Point:</strong> Initial set of facts in Working Memory.</li>
+        <li><strong>Conflict Set:</strong> All rules whose premises are satisfied by current facts.</li>
+        <li><strong>Conflict Resolution Strategies:</strong>
+          <ul style="padding-left:1rem;margin-top:.2rem">
+            <li><strong>Refractory:</strong> A rule will not fire twice on the identical piece of data (prevents infinite loops).</li>
+            <li><strong>Recency:</strong> Prefers rules matching newly generated facts (time-tags).</li>
+            <li><strong>Specificity:</strong> Prefers rules having more detailed/specific condition clauses.</li>
+          </ul>
+        </li>
+        <li><strong>Best Suited For:</strong> Design, synthesis, configuration, and monitoring tasks.</li>
+      </ul>
+    </div>
+
+    <div class="glass chain-card" style="border-top:3.5px solid var(--pink)">
+      <h4 style="color:var(--pink)">⏪ Backward Chaining (Goal-Driven) <a href="topic.html?topic=backward_chaining" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+      <p style="font-size:.84rem;color:var(--text-dim);margin-bottom:.6rem">Top-down reasoning: Starts with a hypothesis (goal) to prove, finds rules that conclude it, and recursively verifies their premises.</p>
+      <ul>
+        <li><strong>Starting Point:</strong> Desired goal / hypothesis query.</li>
+        <li><strong>Process:</strong> Scans rule base for rules whose <code>THEN</code> clause matches the goal.</li>
+        <li><strong>Sub-goals:</strong> Unverified premises become new sub-goals that must be proven.</li>
+        <li><strong>User Interaction:</strong> Asks user for missing facts only if no rules can prove the premise.</li>
+        <li><strong>Prolog Engine:</strong> Standard Prolog execution operates strictly via depth-first backward chaining with backtracking.</li>
+        <li><strong>Best Suited For:</strong> Diagnosis, medical consultation (MYCIN), troubleshooting.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Prolog & Logic Programming -->
+  <div class="glass reveal" style="margin-top:2rem">
+    <h3 style="margin-bottom:.4rem">💻 Logic Programming & Prolog Essentials <a href="topic.html?topic=prolog" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h3>
+    <p style="font-size:.85rem;color:var(--text-dim);margin-bottom:1rem">Based on Robert Kowalski's landmark equation: <code>Algorithm = Logic + Control</code>.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem">
+      <div style="background:var(--surface2);padding:1rem;border-radius:var(--radius-sm)">
+        <h5 style="color:var(--cyan);font-family:'JetBrains Mono';margin-bottom:.3rem">1. Facts (Unit Clauses)</h5>
+        <div style="font-family:'JetBrains Mono';font-size:.82rem;color:var(--text)">
+          parent(tom, bob).<br>
+          female(pam).<br>
+          sunny.
+        </div>
+        <p style="font-size:.78rem;color:var(--text-dim);margin-top:.4rem">Unconditional truths. Always end with a period <code>.</code></p>
+      </div>
+
+      <div style="background:var(--surface2);padding:1rem;border-radius:var(--radius-sm)">
+        <h5 style="color:var(--gold);font-family:'JetBrains Mono';margin-bottom:.3rem">2. Rules (Horn Clauses)</h5>
+        <div style="font-family:'JetBrains Mono';font-size:.82rem;color:var(--text)">
+          grandparent(X, Z) :-<br>
+          &nbsp;&nbsp;parent(X, Y), parent(Y, Z).
+        </div>
+        <p style="font-size:.78rem;color:var(--text-dim);margin-top:.4rem"><code>Head :- Body</code> read as: "Head is true IF Body is true". Commas represent logical AND.</p>
+      </div>
+
+      <div style="background:var(--surface2);padding:1rem;border-radius:var(--radius-sm)">
+        <h5 style="color:var(--green);font-family:'JetBrains Mono';margin-bottom:.3rem">3. Queries (Goals)</h5>
+        <div style="font-family:'JetBrains Mono';font-size:.82rem;color:var(--text)">
+          ?- grandparent(tom, Who).<br>
+          Who = bob ;<br>
+          false.
+        </div>
+        <p style="font-size:.78rem;color:var(--text-dim);margin-top:.4rem">Submitted to the interpreter. Uses SLD resolution and unifies variables (starts with uppercase).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== LOGIC FLIP CARDS ====== -->
+<section id="logic">
+  <div class="section-title reveal">
+    <span class="badge badge-pink">PDFs 2, 3, 4: Logic, Rules & Proofs</span>
+    <h2><img src="images/icon_logic.jpg" alt="Logic" class="title-icon">Interactive Logic & Inference Rules <a href="topic.html?topic=prop_rules" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h2>
+    <p>Flip the cards to master Propositional Inference Rules, Quantifier Rules, and Proof Methods.</p>
+    <div class="pdf-links">
+      <a class="pdf-link" href="pdfs/4_Logic.pdf" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> 4_Logic.pdf</a>
+      <a class="pdf-link" href="pdfs/2_List-of-Rules-of-inference.pdf" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> 2_Rules-of-inference.pdf</a>
+    </div>
+  </div>
+
+  <div class="logic-tabs reveal">
+    <button class="logic-tab active" data-tab="prop" onclick="switchLogicTab('prop',this)">Propositional Rules (8)</button>
+    <button class="logic-tab" data-tab="quant" onclick="switchLogicTab('quant',this)">Quantifier Rules (5)</button>
+    <button class="logic-tab" data-tab="proofs" onclick="switchLogicTab('proofs',this)">Proof Techniques (7)</button>
+  </div>
+
+  <div class="flip-grid reveal" id="flipGrid">
+    <!-- Flip cards injected via JavaScript -->
+  </div>
+  <p class="flip-hint reveal">👆 Click any card to flip it and view its formal derivation!</p>
+
+  <!-- Official Inference Rules Sheets from PDF 2 -->
+  <div class="glass reveal" style="margin-top:2.5rem">
+    <h3 style="margin-bottom:.4rem">🖼️ Official Rules of Inference Reference Sheets (PDF 2)</h3>
+    <p style="font-size:.84rem;color:var(--text-dim);margin-bottom:1rem">Click any sheet to inspect the complete formal proofs and inference derivations.</p>
+    <div class="diagram-grid">
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/rules_of_inference_p1.png', 'Rules of Inference Reference Sheet — Page 1', 'Official reference table for Modus Ponens, Modus Tollens, Hypothetical Syllogism, Disjunctive Syllogism, and Addition. From 2_List-of-Rules-of-inference.pdf, Page 1.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/rules_of_inference_p1.png" alt="Inference Rules Page 1">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">Rules of Inference (Page 1)</div>
+          <div class="diagram-desc">Formal premise-conclusion derivations for all foundational propositional inference rules.</div>
+          <div class="diagram-source">📄 PDF 2, Page 1</div>
+        </div>
+      </div>
+
+      <div class="diagram-card" onclick="openDiagramModal('images/pdf_diagrams/rules_of_inference_p2.png', 'Rules of Inference Reference Sheet — Page 2', 'Official reference table for Simplification, Conjunction, Resolution, and Quantifier rules (UI, UG, EI, EG). From 2_List-of-Rules-of-inference.pdf, Page 2.')">
+        <div class="diagram-img-wrap">
+          <img src="images/pdf_diagrams/rules_of_inference_p2.png" alt="Inference Rules Page 2">
+          <div class="diagram-zoom-badge">🔍 Zoom</div>
+        </div>
+        <div class="diagram-meta">
+          <div class="diagram-title">Rules of Inference (Page 2)</div>
+          <div class="diagram-desc">Continuation covering Resolution, Quantifier Instantiation, and Generalization.</div>
+          <div class="diagram-source">📄 PDF 2, Page 2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FORMULA SHEET ====== -->
+<section id="formulas">
+  <div class="section-title reveal">
+    <span class="badge badge-gold">PDF 3: Quick Reference</span>
+    <h2><img src="images/icon_formulas.svg" alt="Formulas" class="title-icon">Complete Formula Cheat Sheet</h2>
+    <p>All core logical equivalences, quantifier properties, and search cost functions in one place.</p>
+    <div class="pdf-links">
+      <a class="pdf-link" href="pdfs/3_logic%20Formule.pdf" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> 3_logic Formule.pdf</a>
+    </div>
+  </div>
+
+  <!-- Official PDF 3 Formula Sheet Scan -->
+  <div class="glass reveal" style="margin-bottom:2rem;cursor:pointer" onclick="openDiagramModal('images/pdf_diagrams/logic_equivalences_table.png', 'Official Table of Logical Equivalences (PDF 3)', 'The complete 1-page reference summary table covering Identity, Domination, Idempotent, Double Negation, Commutative, Associative, Distributive, De Morgan\'s, and Absorption laws. From 3_logic Formule.pdf.')">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem">
+      <h4 style="color:var(--text-bright)">🖼️ Official Table of Logical Equivalences (PDF 3 Cheat Sheet)</h4>
+      <span style="font-size:.74rem;color:var(--gold);font-family:'JetBrains Mono'">🔍 Click to Expand High-Res Slide</span>
+    </div>
+    <img src="images/pdf_diagrams/logic_equivalences_table.png" alt="Logic Equivalences Table" style="border:1px solid var(--glass-border);border-radius:10px;max-height:420px;width:100%;object-fit:contain;background:#0d0d24;padding:.8rem">
+  </div>
+
+  <div class="formula-grid reveal">
+    <div class="glass formula-card">
+      <h4>⚡ De Morgan's Laws <a href="topic.html?topic=de_morgan_equivalences" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+      <div class="eq">¬(p ∧ q) ≡ ¬p ∨ ¬q</div>
+      <div class="eq">¬(p ∨ q) ≡ ¬p ∧ ¬q</div>
+      <div class="eq">¬(∀x P(x)) ≡ ∃x ¬P(x)</div>
+      <div class="eq">¬(∃x P(x)) ≡ ∀x ¬P(x)</div>
+    </div>
+
+    <div class="glass formula-card">
+      <h4>🔗 Conditional & Contrapositive</h4>
+      <div class="eq">(p → q) ≡ (¬p ∨ q)</div>
+      <div class="eq">(p → q) ≡ (¬q → ¬p) [Contrapositive]</div>
+      <div class="eq">¬(p → q) ≡ (p ∧ ¬q)</div>
+      <div class="eq">(p ↔ q) ≡ (p → q) ∧ (q → p)</div>
+    </div>
+
+    <div class="glass formula-card">
+      <h4>🔀 Distributive & Associative Laws</h4>
+      <div class="eq">p ∧ (q ∨ r) ≡ (p ∧ q) ∨ (p ∧ r)</div>
+      <div class="eq">p ∨ (q ∧ r) ≡ (p ∨ q) ∧ (p ∨ r)</div>
+      <div class="eq">(p ∧ q) ∧ r ≡ p ∧ (q ∧ r)</div>
+    </div>
+
+    <div class="glass formula-card">
+      <h4>🧽 Absorption & Idempotent Laws</h4>
+      <div class="eq">p ∨ (p ∧ q) ≡ p</div>
+      <div class="eq">p ∧ (p ∨ q) ≡ p</div>
+      <div class="eq">p ∨ p ≡ p &nbsp;|&nbsp; p ∧ p ≡ p</div>
+      <div class="eq">¬(¬p) ≡ p [Double Negation]</div>
+    </div>
+
+    <div class="glass formula-card">
+      <h4>📐 Quantifier Distributions</h4>
+      <div class="eq">∀x (P(x) ∧ Q(x)) ≡ ∀x P(x) ∧ ∀x Q(x)</div>
+      <div class="eq">∃x (P(x) ∨ Q(x)) ≡ ∃x P(x) ∨ ∃x Q(x)</div>
+      <div class="eq">∀x P(x) ∨ ∀x Q(x) ⟹ ∀x (P(x) ∨ Q(x))</div>
+    </div>
+
+    <div class="glass formula-card">
+      <h4>🔍 Search Evaluation Functions</h4>
+      <div class="eq">Uniform Cost Search: f(n) = g(n)</div>
+      <div class="eq">Greedy Best-First: f(n) = h(n)</div>
+      <div class="eq">A* Search: f(n) = g(n) + h(n)</div>
+      <div class="eq">Admissibility: 0 ≤ h(n) ≤ h*(n)</div>
+      <div class="eq">Consistency: h(n) ≤ c(n,a,n') + h(n')</div>
+    </div>
+  </div>
+
+  <!-- 16 Binary Truth Functions Table -->
+  <div class="glass reveal" style="margin-top:2rem">
+    <h4 style="margin-bottom:.6rem;color:var(--gold)">📊 The 16 Binary Propositional Truth Functions <a href="topic.html?topic=wff_truth" target="_blank" class="topic-dive-btn">📖 Deep Dive ↗</a></h4>
+    <p style="font-size:.82rem;color:var(--text-dim);margin-bottom:1rem">For two inputs $p$ and $q$ ($2^2=4$ input rows), there are exactly $2^4 = 16$ distinct logical operations.</p>
+    <div class="truth-matrix-wrap">
+      <table class="truth-table">
+        <thead>
+          <tr>
+            <th>p</th><th>q</th>
+            <th>F (0)</th>
+            <th>NOR (↓)</th>
+            <th>p ∧ ¬q</th>
+            <th>¬p</th>
+            <th>¬p ∧ q</th>
+            <th>¬q</th>
+            <th>XOR (⊕)</th>
+            <th>NAND (↑)</th>
+            <th>AND (∧)</th>
+            <th>XNOR (↔)</th>
+            <th>q</th>
+            <th>p → q</th>
+            <th>p</th>
+            <th>q → p</th>
+            <th>OR (∨)</th>
+            <th>T (1)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td><td>1</td>
+            <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+          </tr>
+          <tr>
+            <td>1</td><td>0</td>
+            <td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td>
+          </tr>
+          <tr>
+            <td>0</td><td>1</td>
+            <td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td>
+          </tr>
+          <tr>
+            <td>0</td><td>0</td>
+            <td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ====== QUIZ ====== -->
+<section id="quiz">
+  <div class="section-title reveal">
+    <span class="badge badge-green">Self-Assessment</span>
+    <h2><img src="images/icon_quiz.svg" alt="Quiz" class="title-icon">20-Question Exam Readiness Quiz</h2>
+    <p>Comprehensive exam simulation testing all 8 lecture modules. Score 100% to prove exam readiness!</p>
+  </div>
+
+  <div class="quiz-container glass reveal" id="quizContainer">
+    <div class="quiz-progress">
+      <div class="quiz-bar"><div class="quiz-bar-fill" id="quizBarFill"></div></div>
+      <div class="quiz-count" id="quizCount">1 / 20</div>
+    </div>
+    <div class="quiz-question" id="quizQuestion"></div>
+    <div class="quiz-options" id="quizOptions"></div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+    <button class="btn btn-primary quiz-next" id="quizNext" onclick="nextQuestion()">Next Question →</button>
+    <div class="quiz-score" id="quizScore">
+      <h3>🎉 Quiz Complete!</h3>
+      <div class="score-num" id="finalScore"></div>
+      <p style="color:var(--text-dim);margin-top:.5rem" id="scoreMsg"></p>
+      <button class="btn btn-primary" style="margin-top:1.2rem" onclick="startQuiz()">↺ Retake Quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FULL-SCREEN DIAGRAM LIGHTBOX MODAL ====== -->
+<div class="diagram-modal" id="diagramModal" onclick="closeDiagramModal(event)">
+  <div class="diagram-modal-box" onclick="event.stopPropagation()">
+    <button class="diagram-modal-close" onclick="closeDiagramModal()" aria-label="Close modal">×</button>
+    <h3 id="modalTitle" style="color:var(--text-bright);font-size:1.25rem">Diagram Inspection</h3>
+    <img src="" alt="Enlarged Diagram" id="modalImg" class="diagram-modal-img">
+    <p id="modalCaption" class="diagram-modal-caption"></p>
+    <div id="modalSource" class="diagram-modal-source"></div>
+  </div>
+</div>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+  <p>🧠 <strong>Artificial Intelligence Exam Revision Hub & Master Playground</strong></p>
+  <p>Designed based on course materials by Prof. Alok Choudhury, Dept. of CSE, SoT, Assam Don Bosco University (ADBU).</p>
+  <p style="font-size:.76rem;color:var(--accent2);margin-top:.5rem">Covers Foundations, PEAS, Agents, Informed Search, Memory-Bounded Search, Knowledge Representation, Inference Rules & Logic Proofs.</p>
+</footer>
+
+<!-- ====== SCRIPT ====== -->
+<script>
+/* ========== 1. PARTICLES BACKGROUND ========== */
+(function(){
+  const c=document.getElementById('particles'),x=c.getContext('2d');
+  let W,H,particles=[];
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}
+  window.addEventListener('resize',resize);resize();
+  for(let i=0;i<75;i++){
+    particles.push({
+      x:Math.random()*W,y:Math.random()*H,
+      r:Math.random()*1.8+.5,
+      dx:(Math.random()-.5)*.35,dy:(Math.random()-.5)*.35,
+      o:Math.random()*.35+.1
+    });
+  }
+  function draw(){
+    x.clearRect(0,0,W,H);
+    particles.forEach(p=>{
+      p.x+=p.dx;p.y+=p.dy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);
+      x.fillStyle=`rgba(162,155,254,${p.o})`;x.fill();
+    });
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const d=Math.hypot(particles[i].x-particles[j].x,particles[i].y-particles[j].y);
+        if(d<110){
+          x.beginPath();x.moveTo(particles[i].x,particles[i].y);x.lineTo(particles[j].x,particles[j].y);
+          x.strokeStyle=`rgba(108,92,231,${.07*(1-d/110)})`;x.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ========== 2. NAVBAR & MOBILE NAVIGATION ========== */
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click',()=>navLinks.classList.toggle('open'));
+
+// Auto-close menu when a nav link is clicked
+navLinks.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click',()=>navLinks.classList.remove('open'));
+});
+
+let lastScroll=0;
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('navbar');
+  const cur=window.scrollY;
+  if(cur>lastScroll && cur>90) nav.classList.add('hidden');
+  else nav.classList.remove('hidden');
+  lastScroll=cur;
+
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    const target=a.getAttribute('href');
+    if(!target || !target.startsWith('#')) return;
+    const sec=document.querySelector(target);
+    if(sec && sec.offsetTop-180<=cur && sec.offsetTop+sec.offsetHeight-180>cur){
+      a.classList.add('active');
+    } else {
+      a.classList.remove('active');
+    }
+  });
+});
+
+/* ========== 3. SCROLL REVEAL & COUNTERS ========== */
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+const cObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;const target=+el.dataset.target;let cur=0;
+      const step=()=>{
+        cur+=Math.ceil(target/30);
+        if(cur>=target){el.textContent=target;return}
+        el.textContent=cur;requestAnimationFrame(step);
+      };
+      step();cObserver.unobserve(el);
+    }
+  });
+},{threshold:.4});
+document.querySelectorAll('.num[data-target]').forEach(el=>cObserver.observe(el));
+
+/* ========== 4. AGENT ACCORDION TOGGLE ========== */
+function toggleAgent(card){
+  const isActive = card.classList.contains('active');
+  document.querySelectorAll('.agent-card').forEach(c=>c.classList.remove('active'));
+  if(!isActive) card.classList.add('active');
+}
+
+/* ========== 5. DIAGRAM LIGHTBOX MODAL ========== */
+function openDiagramModal(src, title, caption){
+  const modal = document.getElementById('diagramModal');
+  document.getElementById('modalImg').src = src;
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalCaption').textContent = caption;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDiagramModal(event){
+  const modal = document.getElementById('diagramModal');
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape'){
+    closeDiagramModal();
+  }
+});
+
+/* ========== 6. MASTER GLOSSARY & SEARCH ========== */
+const glossaryData = [
+  // Foundations
+  {term:"Artificial Intelligence (AI)",cat:"foundations",badge:"badge-purple",def:"The study and engineering of computational systems capable of performing tasks typically requiring human intelligence — perceiving, reasoning, learning, and acting rationally.",formula:"AI = Science (Modeling Mind) + Engineering (Building Agents)",eg:"Exam view: Russell & Norvig categorize AI into Thinking/Acting Humanly vs Thinking/Acting Rationally."},
+  {term:"Rationality vs. Omniscience",cat:"foundations",badge:"badge-purple",def:"Rationality maximizes *expected* performance given current percept history and prior knowledge. Omniscience knows the *actual* outcome in advance (impossible due to real-world uncertainty).",formula:"Max E[U] given P* ≠ Omniscience",eg:"Exam tip: Never confuse rationality with perfection or omniscience."},
+  {term:"DIKW Hierarchy",cat:"foundations",badge:"badge-purple",def:"A pyramid model: Data (raw disconnected symbols) → Information (contextualized facts) → Knowledge (understanding patterns, rules, 'knowing how') → Wisdom (understanding principles, 'knowing why').",formula:"Data → Information → Knowledge → Wisdom",eg:"Standard question: What distinguishes knowledge from simple data? Knowledge contains actionable rules and understanding."},
+  {term:"Turing Test (1950)",cat:"foundations",badge:"badge-purple",def:"An operational test for intelligence proposed by Alan Turing: If a human interrogator cannot reliably tell whether responses come from a computer or human, the computer acts humanly.",formula:"Human Interrogator vs (Machine + Human Foil)",eg:"Requires NLP, Knowledge Representation, Automated Reasoning, and Machine Learning."},
+  {term:"Dartmouth Workshop (1956)",cat:"foundations",badge:"badge-purple",def:"A 2-month summer workshop organized by John McCarthy, Marvin Minsky, Claude Shannon, and Nathaniel Rochester where the term 'Artificial Intelligence' was officially coined and the field was founded.",formula:"Birth of AI as an academic discipline",eg:"Common MCQ: Who coined the phrase 'Artificial Intelligence'? John McCarthy in 1956."},
+  {term:"AI Winter",cat:"foundations",badge:"badge-purple",def:"Periods of severe funding cuts and skepticism in AI history (AI Winter I: 1974-1980; AI Winter II: 1987-1993), caused by over-promising, combinatorial explosion, and the Lighthill/ALPAC reports.",formula:"High Expectations - Scalability Bottlenecks = AI Winter",eg:"Triggered originally by Minsky & Papert's critique showing Perceptrons could not solve XOR."},
+
+  // Agents & Environments
+  {term:"Agent & Architecture",cat:"agents",badge:"badge-cyan",def:"An agent perceives its environment through sensors and acts upon it via actuators. An agent is formally defined as the underlying hardware architecture plus the controlling program.",formula:"Agent = Architecture + Program",eg:"Sensors receive percepts; actuators execute actions in the external environment."},
+  {term:"Agent Function vs. Program",cat:"agents",badge:"badge-cyan",def:"The Agent Function f: P* → A is the abstract mathematical mapping from complete percept histories P* to actions A. The Agent Program is the concrete code implementation running on physical architecture.",formula:"f : P* → A",eg:"The program can only take the current percept and internal state; the function accounts for all past percepts."},
+  {term:"PEAS Framework",cat:"agents",badge:"badge-cyan",def:"A formal specification framework for designing intelligent agents: Performance measure, Environment, Actuators, and Sensors.",formula:"P = Performance, E = Environment, A = Actuators, S = Sensors",eg:"Standard exam problem: Write the PEAS specification for an Automated Taxi, Medical Diagnostician, or Part-Picking Robot."},
+  {term:"Simple Reflex Agent",cat:"agents",badge:"badge-cyan",def:"The simplest agent architecture. Selects actions based solely on the current percept, relying on direct condition-action rules. Has no memory of past percepts.",formula:"condition → action",eg:"Thermostat: IF temperature < 20°C THEN turn heater ON. Fails if the environment is partially observable."},
+  {term:"Model-Based Reflex Agent",cat:"agents",badge:"badge-cyan",def:"Maintains an internal world state to handle partial observability. Tracks how the world evolves independently and how the agent's own actions alter the world.",formula:"Current State + Percept + Model = Updated Internal State",eg:"A car driver checking mirrors and remembering an overtaking car that is momentarily hidden in a blind spot."},
+  {term:"Goal-Based Agent",cat:"agents",badge:"badge-cyan",def:"Combines state information with explicit goal descriptions to evaluate which sequence of actions will achieve the desirable outcome using search and planning.",formula:"Current State + Goal Formulation → Action Sequence",eg:"GPS routing system navigating to a chosen destination city."},
+  {term:"Utility-Based Agent",cat:"agents",badge:"badge-cyan",def:"Evaluates world states with a continuous utility function U(s) to make rational trade-offs among multiple competing goals (e.g., speed vs. comfort vs. fuel cost).",formula:"MEU = argmax_a ∑ P(s'|s,a) U(s')",eg:"Taxi selecting a route that is slightly longer but significantly safer and smoother for the passenger."},
+  {term:"Learning Agent",cat:"agents",badge:"badge-cyan",def:"An agent partitioned into four modules: Learning Element (makes improvements), Performance Element (takes actions), Critic (evaluates results against standard), and Problem Generator (explores).",formula:"Learning Element + Performance Element + Critic + Problem Generator",eg:"Exploration vs. exploitation: the problem generator suggests new routes to discover faster paths."},
+  {term:"Episodic vs. Sequential",cat:"agents",badge:"badge-cyan",def:"In an episodic environment, the agent's experience is split into atomic, independent episodes where current actions do not impact future episodes. In sequential, current choices affect future states.",formula:"Episodic: No temporal action cascade | Sequential: Long-term planning needed",eg:"Part defect inspection on conveyor = Episodic; Chess / Autonomous driving = Sequential."},
+
+  // Search & Heuristics
+  {term:"Search Problem Formulation",cat:"search",badge:"badge-gold",def:"A well-defined search problem consists of 5 components: Initial State (s₀), Actions (A(s)), Transition Model (Result(s,a)), Goal Test (G(s)), and Path Cost (c(s,a,s')).",formula:"Problem = ⟨ s₀, A(s), Result(s,a), GoalTest(s), c(s,a,s') ⟩",eg:"Exam question: List the 5 components of a search problem."},
+  {term:"Heuristic Function h(n)",cat:"search",badge:"badge-gold",def:"An informed estimate of the cheapest path cost from node n to the nearest goal state. Often formulated by computing exact costs in a relaxed, simplified version of the problem.",formula:"h(n) ≈ h*(n) [True cost to goal]",eg:"Straight-line Euclidean distance in route-finding; Manhattan distance in 8-puzzle."},
+  {term:"Admissibility",cat:"search",badge:"badge-gold",def:"A heuristic h(n) is admissible if it never overestimates the true cost to reach the nearest goal: 0 ≤ h(n) ≤ h*(n) for all nodes n. Guarantees optimality in A* tree search.",formula:"0 ≤ h(n) ≤ h*(n)",eg:"Straight-line distance is always admissible because it is the shortest possible geometric path between two points."},
+  {term:"Consistency (Monotonicity)",cat:"search",badge:"badge-gold",def:"A heuristic is consistent if for every node n and every child n' generated by action a, h(n) ≤ c(n,a,n') + h(n'). Satisfies the triangle inequality. Guarantees optimality in A* graph search.",formula:"h(n) ≤ c(n,a,n') + h(n')",eg:"Consistent heuristics ensure that the f-values along any path are monotonically non-decreasing."},
+  {term:"Greedy Best-First Search",cat:"search",badge:"badge-gold",def:"An informed search algorithm that expands the node with the lowest heuristic value f(n) = h(n), chasing what seems closest to the goal. Incomplete and non-optimal.",formula:"f(n) = h(n)",eg:"Can be led astray by misleading heuristics, ending up on very expensive or circular paths."},
+  {term:"A* Search Algorithm",cat:"search",badge:"badge-gold",def:"The gold standard informed search algorithm. Evaluates nodes via f(n) = g(n) + h(n), balancing exact backward cost g(n) with estimated forward heuristic cost h(n).",formula:"f(n) = g(n) + h(n)",eg:"Complete and optimal under admissible heuristics, but requires exponential space O(b^d)."},
+  {term:"Uniform Cost Search (UCS)",cat:"search",badge:"badge-gold",def:"An uninformed search algorithm that expands the node with the lowest path cost g(n) accumulated from the start node. Equivalent to Dijkstra's algorithm.",formula:"f(n) = g(n) [Equivalent to A* with h(n) = 0]",eg:"Always finds the optimal path for any positive step costs, but expands circular contours uniformly."},
+
+  // Memory Bounded
+  {term:"IDA* (Iterative Deepening A*)",cat:"memory",badge:"badge-pink",def:"A memory-bounded search algorithm that adapts IDDFS by using f-cost cutoffs instead of depth cutoffs. Linear space O(b·d).",formula:"Space: O(b · d) | f-limit threshold",eg:"Each iteration performs DFS. The new f-limit is the minimum f-value exceeding the previous limit."},
+  {term:"RBFS (Recursive Best-First Search)",cat:"memory",badge:"badge-pink",def:"A linear-space heuristic search algorithm that mimics best-first search. Keeps track of the best alternative path f-value available at any ancestor node.",formula:"Space: O(b · d) | Tracks alternative f-limit",eg:"Suffers from 'thrashing': switching back and forth between competing paths and recalculating forgotten subtrees."},
+  {term:"SMA* (Simplified Memory-Bounded A*)",cat:"memory",badge:"badge-pink",def:"A memory-bounded search algorithm that uses all available memory M. When full, drops the shallowest, highest f-cost leaf node and backs up its value to the parent.",formula:"Space: O(M) | Complete if M ≥ d, Optimal if M ≥ d*",eg:"Can regenerate dropped nodes if other alternatives prove to be worse than the backed-up parent value."},
+  {term:"Thrashing",cat:"memory",badge:"badge-pink",def:"A phenomenon in RBFS where the algorithm repeatedly switches between two nearly equal competing paths, regenerating forgotten subtrees over and over and wasting compute time.",formula:"Frequent backtracking + Recomputation",eg:"Occurs when multiple branches have very close f-cost boundaries."},
+
+  // Knowledge & Rules
+  {term:"Tacit vs. Explicit Knowledge",cat:"kr",badge:"badge-green",def:"Explicit knowledge is formal, codified, easily documented, and transmittable. Tacit knowledge is informal, deeply personal, experiential, and difficult to articulate.",formula:"Explicit = Codified rules | Tacit = Experience & Intuition",eg:"Medical textbook rules = Explicit; a seasoned surgeon's surgical intuition = Tacit."},
+  {term:"Declarative vs. Procedural",cat:"kr",badge:"badge-green",def:"Declarative knowledge is 'knowing that' — describing static facts, relationships, and axioms. Procedural knowledge is 'knowing how' — step-by-step algorithms, instructions, and recipes.",formula:"Declarative = 'Knowing That' | Procedural = 'Knowing How'",eg:"Prolog facts/SQL tables = Declarative; C++ sorting algorithms = Procedural."},
+  {term:"Semantic Networks",cat:"kr",badge:"badge-green",def:"A graphical knowledge representation framework where nodes represent concepts/objects and directed edges represent relationships. Uses IsA (subset) and Instance (element) links.",formula:"Nodes = Entities | Directed Edges = Relations (IsA, Instance)",eg:"Canary IsA Bird; Bird has-wings → By inheritance, Canary has wings."},
+  {term:"Frames & Slots",cat:"kr",badge:"badge-green",def:"Proposed by Marvin Minsky: A data structure representing stereotypical situations. Consists of a collection of named Slots (attributes) filled with Fillers (values/pointers).",formula:"Frame = { Slot₁: Value₁, Slot₂: DefaultValue, ... }",eg:"Includes procedural attachments (demons) like 'if-needed' to calculate values dynamically."},
+  {term:"Forward Chaining",cat:"kr",badge:"badge-green",def:"A data-driven reasoning strategy in rule-based systems. Starts with known facts in Working Memory, fires rules whose conditions are satisfied, and adds new derived facts until goal is met.",formula:"Facts → Match Conditions → Fire Rules → New Facts",eg:"Ideal for synthesis, configuration, and monitoring tasks where all data is available upfront."},
+  {term:"Backward Chaining",cat:"kr",badge:"badge-green",def:"A goal-driven reasoning strategy. Starts with a hypothesis/query to prove, finds rules that conclude it, and recursively sets their premises as new sub-goals.",formula:"Goal Query → Match Conclusion → Generate Sub-goals",eg:"Standard inference engine of Prolog and diagnostic systems like MYCIN."},
+  {term:"Conflict Resolution Strategies",cat:"kr",badge:"badge-green",def:"Techniques used by a Production System's Inference Engine when multiple rules match the current working memory: Refractory (don't refire on same data), Recency (prefer new facts), Specificity (prefer detailed rules).",formula:"Conflict Set Resolution: Refractory + Recency + Specificity",eg:"Prevents infinite inference loops and prioritizes emergency specialized rules."},
+  {term:"Kowalski's Equation (Prolog)",cat:"kr",badge:"badge-green",def:"The theoretical foundation of logic programming formulated by Robert Kowalski: An algorithm consists of a logic component (what is true) and a control component (how inference is executed).",formula:"Algorithm = Logic + Control",eg:"In Prolog: Programmer specifies Logic (Facts & Rules); Prolog engine provides Control (Depth-first search with backtracking)."},
+
+  // Logic & Proofs
+  {term:"Well-Formed Formula (WFF)",cat:"logic",badge:"badge-pink",def:"A syntactically valid string of symbols generated according to the grammatical formation rules of formal propositional or predicate logic.",formula:"Atomic formulas + Connectives (¬, ∧, ∨, →, ↔) + Quantifiers",eg:"(p ∧ q) → r is a WFF; p ∧ ∨ q is not."},
+  {term:"Tautology, Contradiction, Contingency",cat:"logic",badge:"badge-pink",def:"Tautology: A compound proposition that is always True for every possible truth assignment. Contradiction: Always False. Contingency: Neither (True in some cases, False in others).",formula:"Tautology ≡ 1 | Contradiction ≡ 0 | Contingency ≡ Variable",eg:"p ∨ ¬p is a Tautology; p ∧ ¬p is a Contradiction; p → q is a Contingency."},
+  {term:"Resolution Principle",cat:"logic",badge:"badge-pink",def:"A fundamental inference rule for automated theorem proving in Conjunctive Normal Form (CNF): From (p ∨ q) and (¬p ∨ r), derive the resolvent (q ∨ r).",formula:"[(p ∨ q) ∧ (¬p ∨ r)] ⊢ (q ∨ r)",eg:"Resolution Refutation: To prove statement S, negate S, convert to CNF, and apply resolution until empty clause □ (contradiction) is derived."},
+  {term:"Deduction Theorem",cat:"logic",badge:"badge-pink",def:"A metalogical theorem stating that premise P derives statement Q if and only if the conditional implication P → Q is a logical tautology.",formula:"P ⊢ Q ⟺ ⊢ (P → Q)",eg:"Allows transforming proofs from assumptions into valid conditional theorems."},
+  {term:"Proof by Contradiction (Reductio)",cat:"logic",badge:"badge-pink",def:"A mathematical proof technique: To prove proposition p is true, assume ¬p is true and logically deduce an impossible contradiction (F). Hence, ¬p is false, meaning p is true.",formula:"Assume ¬p → Derive F ⟹ p is True",eg:"Classic proofs: Proving that √2 is irrational, or that the set of prime numbers is infinite."}
+];
+
+let activeCategory = 'all';
+function renderGlossary(){
+  const grid = document.getElementById('glossaryGrid');
+  const query = document.getElementById('glossarySearch').value.toLowerCase().trim();
+  grid.innerHTML = '';
+
+  const filtered = glossaryData.filter(item=>{
+    const matchCat = activeCategory === 'all' || item.cat === activeCategory;
+    const matchQuery = !query ||
+      item.term.toLowerCase().includes(query) ||
+      item.def.toLowerCase().includes(query) ||
+      item.formula.toLowerCase().includes(query) ||
+      (item.eg && item.eg.toLowerCase().includes(query));
+    return matchCat && matchQuery;
+  });
+
+  document.getElementById('glossaryStats').textContent = `Showing ${filtered.length} of ${glossaryData.length} definitions`;
+
+  if(filtered.length === 0){
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2.5rem;color:var(--text-dim)">
+      <p style="font-size:1.1rem;margin-bottom:.5rem">🔍 No definitions found matching "${query}"</p>
+      <p style="font-size:.85rem">Try searching for "Admissibility", "PEAS", "Thrashing", "Refractory", or "Horn Clause".</p>
+    </div>`;
+    return;
+  }
+
+  const topicMap = {
+    "Artificial Intelligence (AI)": "foundations_ai",
+    "Rationality vs. Omniscience": "rationality",
+    "DIKW Hierarchy": "dikw",
+    "Turing Test (1950)": "turing_test",
+    "Dartmouth Workshop (1956)": "ai_history",
+    "AI Winter": "ai_history",
+    "Agent & Architecture": "agent_concept",
+    "Agent Function vs. Program": "agent_concept",
+    "PEAS Framework": "peas",
+    "Simple Reflex Agent": "simple_reflex",
+    "Model-Based Reflex Agent": "model_based",
+    "Goal-Based Agent": "goal_based",
+    "Utility-Based Agent": "utility_based",
+    "Learning Agent": "learning_agent",
+    "Episodic vs. Sequential": "environments",
+    "Search Problem Formulation": "search_formulation",
+    "Heuristic Function h(n)": "heuristics",
+    "Admissibility": "admissibility",
+    "Consistency (Monotonicity)": "consistency",
+    "Greedy Best-First Search": "greedy_search",
+    "A* Search Algorithm": "astar_search",
+    "Uniform Cost Search (UCS)": "ucs_search",
+    "IDA* (Iterative Deepening A*)": "ida_star",
+    "RBFS (Recursive Best-First Search)": "rbfs",
+    "SMA* (Simplified Memory-Bounded A*)": "sma_star",
+    "Thrashing": "thrashing",
+    "Tacit vs. Explicit Knowledge": "knowledge_types",
+    "Declarative vs. Procedural": "knowledge_types",
+    "Semantic Networks": "semantic_nets",
+    "Frames & Slots": "frames",
+    "Forward Chaining": "forward_chaining",
+    "Backward Chaining": "backward_chaining",
+    "Conflict Resolution Strategies": "conflict_resolution",
+    "Kowalski's Equation (Prolog)": "prolog",
+    "Well-Formed Formula (WFF)": "wff_truth",
+    "Tautology, Contradiction, Contingency": "wff_truth",
+    "Resolution Principle": "resolution_principle",
+    "Deduction Theorem": "proof_techniques",
+    "Proof by Contradiction (Reductio)": "proof_techniques"
+  };
+
+  filtered.forEach(item=>{
+    const card = document.createElement('div');
+    card.className = 'glossary-card';
+    const topicId = topicMap[item.term] || 'foundations_ai';
+    card.innerHTML = `
+      <div class="glossary-head">
+        <div class="glossary-term">
+          ${item.term}
+          <a href="topic.html?topic=${topicId}" target="_blank" class="topic-dive-btn" title="Open complete deep-dive explainer for ${item.term}">
+            <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg> 📖 Deep Dive ↗
+          </a>
+        </div>
+        <span class="glossary-tag badge ${item.badge}">${item.cat}</span>
+      </div>
+      <div class="glossary-def">${item.def}</div>
+      <div class="glossary-formula">${item.formula}</div>
+      ${item.eg ? `<div class="glossary-eg">💡 ${item.eg}</div>` : ''}
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterGlossary(){ renderGlossary(); }
+
+function setCategory(cat, btn){
+  activeCategory = cat;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  renderGlossary();
+}
+renderGlossary();
+
+/* ========== 7. SEARCH TREE VISUALIZER (GREEDY vs A* vs UCS) ========== */
+(function(){
+  const canvas = document.getElementById('searchCanvas');
+  const ctx = canvas.getContext('2d');
+  let dpr = window.devicePixelRatio || 1;
+
+  function resizeCanvas(){
+    const w = canvas.clientWidth || 500;
+    const h = 410;
+    const targetW = Math.round(w * dpr);
+    const targetH = Math.round(h * dpr);
+    if(canvas.width !== targetW || canvas.height !== targetH){
+      canvas.width = targetW;
+      canvas.height = targetH;
+    }
+  }
+
+  if(window.ResizeObserver){
+    new ResizeObserver(()=>{
+      resizeCanvas();
+      drawTree();
+    }).observe(canvas.parentElement);
+  } else {
+    window.addEventListener('resize', ()=>{
+      resizeCanvas();
+      drawTree();
+    });
+  }
+
+  const nodes = [
+    {id:0, label:'S', x:.5, y:.08, g:0, h:7, parent:null},
+    {id:1, label:'A', x:.25, y:.28, g:1, h:6, parent:0},
+    {id:2, label:'B', x:.5, y:.28, g:4, h:2, parent:0},
+    {id:3, label:'C', x:.75, y:.28, g:5, h:5, parent:0},
+    {id:4, label:'D', x:.13, y:.52, g:3, h:4, parent:1},
+    {id:5, label:'E', x:.37, y:.52, g:5, h:1, parent:1},
+    {id:6, label:'F', x:.63, y:.52, g:6, h:1, parent:2},
+    {id:7, label:'G', x:.87, y:.52, g:8, h:3, parent:3},
+    {id:8, label:'H', x:.13, y:.78, g:6, h:2, parent:4},
+    {id:9, label:'⭐ G1', x:.37, y:.78, g:6, h:0, parent:5, isGoal:true, isOptimal:true},
+    {id:10, label:'⭐ G2', x:.63, y:.78, g:7, h:0, parent:6, isGoal:true, isOptimal:false}
+  ];
+
+  let visited = [];
+  let pathNodes = [];
+  let currentAlgo = '';
+  let animTimer = null;
+
+  function drawTree(){
+    const w = canvas.width / dpr;
+    const h = canvas.height / dpr;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0,0,w,h);
+
+    nodes.forEach(n=>{
+      if(n.parent !== null){
+        const p = nodes[n.parent];
+        const isPath = pathNodes.includes(n.id) && pathNodes.includes(n.parent);
+        ctx.beginPath();
+        ctx.moveTo(p.x * w, p.y * h);
+        ctx.lineTo(n.x * w, n.y * h);
+        ctx.strokeStyle = isPath ? '#fdcb6e' : 'rgba(255,255,255,.15)';
+        ctx.lineWidth = isPath ? 3.5 : 1.5;
+        ctx.stroke();
+
+        const edgeCost = n.g - p.g;
+        const midX = (p.x * w + n.x * w) / 2 + (n.x < p.x ? -10 : 10);
+        const midY = (p.y * h + n.y * h) / 2;
+        ctx.font = '10px JetBrains Mono';
+        ctx.fillStyle = isPath ? '#fdcb6e' : 'rgba(162,155,254,.6)';
+        ctx.fillText(`c=${edgeCost}`, midX, midY);
+      }
+    });
+
+    nodes.forEach(n=>{
+      const nx = n.x * w, ny = n.y * h, r = 21;
+      const isVisited = visited.includes(n.id);
+      const isOnPath = pathNodes.includes(n.id);
+
+      ctx.beginPath();
+      ctx.arc(nx, ny, r, 0, Math.PI * 2);
+
+      if(isOnPath){
+        ctx.fillStyle = n.isOptimal ? 'rgba(0,184,148,.25)' : 'rgba(253,203,110,.25)';
+        ctx.strokeStyle = n.isOptimal ? '#00b894' : '#fdcb6e';
+        ctx.lineWidth = 3;
+      } else if(isVisited){
+        ctx.fillStyle = 'rgba(108,92,231,.35)';
+        ctx.strokeStyle = '#a29bfe';
+        ctx.lineWidth = 2;
+      } else {
+        ctx.fillStyle = 'rgba(255,255,255,.05)';
+        ctx.strokeStyle = n.isGoal ? 'rgba(253,203,110,.4)' : 'rgba(255,255,255,.2)';
+        ctx.lineWidth = 1.5;
+      }
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = isOnPath ? (n.isOptimal ? '#00b894' : '#fdcb6e') : (isVisited ? '#fff' : '#b8b8d0');
+      ctx.font = 'bold 12px Inter';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(n.label, nx, ny);
+
+      ctx.font = '10px JetBrains Mono';
+      let costText = `g=${n.g}, h=${n.h}`;
+      if(currentAlgo === 'greedy') costText = `h=${n.h}`;
+      else if(currentAlgo === 'astar') costText = `f=${n.g + n.h} (g=${n.g},h=${n.h})`;
+      else if(currentAlgo === 'ucs') costText = `g=${n.g}`;
+
+      ctx.fillStyle = isOnPath ? '#fdcb6e' : (isVisited ? 'rgba(255,255,255,.8)' : 'rgba(255,255,255,.45)');
+      ctx.fillText(costText, nx, ny + r + 13);
+    });
+  }
+
+  function updateSearchLog(header, algoName, text){
+    document.getElementById('searchLogHeader').textContent = header;
+    document.getElementById('searchLogAlgo').textContent = algoName;
+    document.getElementById('searchLogText').innerHTML = text;
+  }
+
+  function animateSearchSteps(steps, finalPath, finalSummary){
+    if(animTimer) clearTimeout(animTimer);
+    visited = [];
+    pathNodes = [];
+    let stepIndex = 0;
+
+    function nextStep(){
+      if(stepIndex < steps.length){
+        const cur = steps[stepIndex];
+        visited.push(cur.nodeId);
+        updateSearchLog(`Step ${stepIndex + 1}: Expanding Node ${cur.label}`, cur.algo, cur.explanation);
+        drawTree();
+        stepIndex++;
+        animTimer = setTimeout(nextStep, 1100);
+      } else {
+        pathNodes = finalPath;
+        updateSearchLog(`Search Complete!`, steps[0].algo, finalSummary);
+        drawTree();
+      }
+    }
+    nextStep();
+  }
+
+  window.runSearch = function(algo){
+    currentAlgo = algo;
+    document.querySelectorAll('.search-controls .btn').forEach(b => b.classList.remove('active-algo'));
+    const btn = document.getElementById('btn-' + algo);
+    if(btn) btn.classList.add('active-algo');
+
+    if(algo === 'greedy'){
+      const steps = [
+        {nodeId: 0, label: 'S (Start)', algo: 'Greedy Best-First [f(n)=h(n)]', explanation: 'Start at root node S. Frontier: {A(h=6), B(h=2), C(h=5)}. Greedy looks <strong>only</strong> at heuristic h(n). Node B has lowest h=2!'},
+        {nodeId: 2, label: 'B (h=2)', algo: 'Greedy Best-First [f(n)=h(n)]', explanation: 'Expanding node B because h(B)=2 was lowest on the frontier. Child of B is F with h(F)=1. Frontier: {F(h=1), C(h=5), A(h=6)}. Lowest is F(h=1)!'},
+        {nodeId: 6, label: 'F (h=1)', algo: 'Greedy Best-First [f(n)=h(n)]', explanation: 'Expanding node F. Child of F is Goal G2 with h(G2)=0. Frontier: {G2(h=0), C(h=5), A(h=6)}. Lowest is G2(h=0)!'},
+        {nodeId: 10, label: '⭐ G2 (Goal, h=0)', algo: 'Greedy Best-First [f(n)=h(n)]', explanation: 'Goal G2 reached! Greedy was tempted by B\'s deceptively low h=2, arriving at G2 with path cost g=7.'}
+      ];
+      const finalPath = [0, 2, 6, 10];
+      const summary = '⚠️ <strong>Greedy Path Found:</strong> S → B → F → G2 with <strong>Total Cost g = 7</strong>.<br><strong>Lesson:</strong> Greedy is <em>suboptimal</em>! It was misled by B\'s low heuristic (h=2) and completely missed the true optimal path through A to G1 (cost g=6).';
+      animateSearchSteps(steps, finalPath, summary);
+
+    } else if(algo === 'astar'){
+      const steps = [
+        {nodeId: 0, label: 'S (Start)', algo: 'A* Search [f(n)=g(n)+h(n)]', explanation: 'Start at S. Frontier: {B(f=4+2=6), A(f=1+6=7), C(f=5+5=10)}. Node B has lowest f=6, so it is expanded first!'},
+        {nodeId: 2, label: 'B (f=6)', algo: 'A* Search [f(n)=g(n)+h(n)]', explanation: 'Expanding node B. Generated child F: g=6, h=1 ⟹ f=7. Frontier now: {A(f=7), F(f=7), C(f=10)}. Next lowest f is A(f=7).'},
+        {nodeId: 1, label: 'A (f=7)', algo: 'A* Search [f(n)=g(n)+h(n)]', explanation: 'Expanding node A. Children generated: D(g=3,h=4 ⟹ f=7) and E(g=5,h=1 ⟹ f=6!). Node E has lower f-cost (f=6)! Frontier: {E(f=6), D(f=7), F(f=7), C(f=10)}.'},
+        {nodeId: 5, label: 'E (f=6)', algo: 'A* Search [f(n)=g(n)+h(n)]', explanation: 'Expanding node E (f=6). Generated child Goal G1 with g=6, h=0 ⟹ f=6! Frontier: {G1(f=6), D(f=7), F(f=7), C(f=10)}. Next lowest is G1!'},
+        {nodeId: 9, label: '⭐ G1 (Optimal Goal, f=6)', algo: 'A* Search [f(n)=g(n)+h(n)]', explanation: 'Goal G1 expanded from the priority queue with f=6. Search terminates with optimal path guarantee!'}
+      ];
+      const finalPath = [0, 1, 5, 9];
+      const summary = '🌟 <strong>A* Path Found:</strong> S → A → E → G1 with <strong>Optimal Cost g = 6</strong>.<br><strong>Lesson:</strong> A* successfully recovered! Even though B looked better at step 1, A* balanced accumulated cost g(n) with h(n), discovering E and G1 with optimal cost 6 < 7!';
+      animateSearchSteps(steps, finalPath, summary);
+
+    } else {
+      const steps = [
+        {nodeId: 0, label: 'S (g=0)', algo: 'Uniform Cost Search [f(n)=g(n)]', explanation: 'Start at S (g=0). Frontier: {A(g=1), B(g=4), C(g=5)}. UCS expands the cheapest node so far: A(g=1).'},
+        {nodeId: 1, label: 'A (g=1)', algo: 'Uniform Cost Search [f(n)=g(n)]', explanation: 'Expanding node A. Children: D(g=3), E(g=5). Frontier: {D(g=3), B(g=4), C(g=5), E(g=5)}. Cheapest is D(g=3).'},
+        {nodeId: 4, label: 'D (g=3)', algo: 'Uniform Cost Search [f(n)=g(n)]', explanation: 'Expanding node D (g=3). Child is H(g=6). Frontier: {B(g=4), C(g=5), E(g=5), H(g=6)}. Cheapest is B(g=4).'},
+        {nodeId: 2, label: 'B (g=4)', algo: 'Uniform Cost Search [f(n)=g(n)]', explanation: 'Expanding node B (g=4). Child is F(g=6). Frontier: {C(g=5), E(g=5), H(g=6), F(g=6)}. Next cheapest is C(g=5) / E(g=5).'},
+        {nodeId: 5, label: 'E (g=5)', algo: 'Uniform Cost Search [f(n)=g(n)]', explanation: 'Expanding node E (g=5). Child is Goal G1(g=6). Frontier: {G1(g=6), H(g=6), F(g=6), G(g=8)}. G1 has minimum g=6!'},
+        {nodeId: 9, label: '⭐ G1 (Goal, g=6)', algo: 'Uniform Cost Search [f(n)=g(n)]', explanation: 'Goal G1 expanded with cheapest path cost g=6. Search terminates with optimal path!'}
+      ];
+      const finalPath = [0, 1, 5, 9];
+      const summary = '💰 <strong>UCS Path Found:</strong> S → A → E → G1 with <strong>Optimal Cost g = 6</strong>.<br><strong>Lesson:</strong> UCS is guaranteed optimal, but it had to expand 6 nodes without heuristic guidance, taking longer than A*.';
+      animateSearchSteps(steps, finalPath, summary);
+    }
+  };
+
+  window.resetSearch = function(){
+    if(animTimer) clearTimeout(animTimer);
+    visited = [];
+    pathNodes = [];
+    currentAlgo = '';
+    document.querySelectorAll('.search-controls .btn').forEach(b => b.classList.remove('active-algo'));
+    updateSearchLog('Interactive Step Analysis', 'Reset', 'Select an algorithm above to watch node expansion step-by-step.');
+    drawTree();
+  };
+
+  setTimeout(()=>{ resizeCanvas(); drawTree(); }, 350);
+})();
+
+/* ========== 8. MEMORY BAR CHART ANIMATION ========== */
+const memObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.mem-fill').forEach(bar=>{
+        bar.style.width = bar.dataset.width + '%';
+      });
+      memObserver.unobserve(e.target);
+    }
+  });
+},{threshold:.25});
+document.querySelectorAll('.memory-grid').forEach(el=>memObserver.observe(el));
+
+/* ========== 9. LOGIC FLIP CARDS DATA & SWITCHER ========== */
+const logicDeck = {
+  prop: [
+    {icon:'🔥', name:'Modus Ponens', front:'p, p → q', back:'∴ q', eg:'If it rains → ground is wet. It rains. ∴ Ground is wet!'},
+    {icon:'🛑', name:'Modus Tollens', front:'¬q, p → q', back:'∴ ¬p', eg:'If fire → alarm sounds. Alarm silent. ∴ No fire.'},
+    {icon:'🔗', name:'Hypothetical Syllogism', front:'p → q, q → r', back:'∴ p → r', eg:'Study → pass. Pass → graduate. ∴ Study → graduate!'},
+    {icon:'🔀', name:'Disjunctive Syllogism', front:'p ∨ q, ¬p', back:'∴ q', eg:'Coffee OR tea. Not coffee. ∴ It is tea!'},
+    {icon:'➕', name:'Addition Rule', front:'p', back:'∴ p ∨ q', eg:'It is sunny. ∴ It is sunny OR raining.'},
+    {icon:'✂️', name:'Simplification', front:'p ∧ q', back:'∴ p', eg:'Cold AND windy. ∴ It is cold.'},
+    {icon:'🤝', name:'Conjunction', front:'p, q', back:'∴ p ∧ q', eg:'Sky is blue. Grass is green. ∴ Both are true!'},
+    {icon:'⚔️', name:'Resolution', front:'(p ∨ q), (¬p ∨ r)', back:'∴ q ∨ r', eg:'Fundamental rule in automated theorem proving & Prolog!'}
+  ],
+  quant: [
+    {icon:'🌐', name:'Universal Instantiation (UI)', front:'∀x P(x)', back:'∴ P(c) [for any c]', eg:'All humans are mortal. Socrates is human. ∴ Socrates is mortal.'},
+    {icon:'⭐', name:'Universal Generalization (UG)', front:'P(c) [arbitrary c]', back:'∴ ∀x P(x)', eg:'If property holds for a completely arbitrary witness c, it holds for all x.'},
+    {icon:'🔎', name:'Existential Instantiation (EI)', front:'∃x P(x)', back:'∴ P(c) [new constant c]', eg:'Someone passed the exam. Name that specific witness c.'},
+    {icon:'🎯', name:'Existential Generalization (EG)', front:'P(c) [known c]', back:'∴ ∃x P(x)', eg:'Ramanujan is a genius. ∴ There exists a genius.'},
+    {icon:'👑', name:'Universal Modus Ponens', front:'∀x (P(x) → Q(x)), P(a)', back:'∴ Q(a)', eg:'Combining Universal Instantiation with Modus Ponens.'}
+  ],
+  proofs: [
+    {icon:'➡️', name:'Direct Proof', front:'Assume p is True', back:'Deduce q via axioms', eg:'Proving if n is odd, then n² is odd: (2k+1)² = 4k²+4k+1 = 2(2k²+2k)+1.'},
+    {icon:'🔄', name:'Proof by Contraposition', front:'Assume ¬q is True', back:'Deduce ¬p', eg:'To prove p → q, prove logically equivalent ¬q → ¬p instead.'},
+    {icon:'💥', name:'Proof by Contradiction', front:'Assume ¬p is True', back:'Deduce Contradiction F', eg:'Reductio ad absurdum: Proving √2 is irrational by deriving an impossible fraction.'},
+    {icon:'📦', name:'Proof by Cases', front:'p₁ ∨ p₂ ∨ ... ∨ pₙ', back:'Prove each pᵢ → q', eg:'Exhaustive verification across all possible parity or sign cases.'},
+    {icon:'🎯', name:'Constructive Existence', front:'Find concrete witness c', back:'Demonstrate P(c) holds', eg:'Taxicab number: 1729 = 10³ + 9³ = 12³ + 1³ (sum of 2 cubes in 2 ways).'},
+    {icon:'👻', name:'Non-Constructive Existence', front:'Prove existence via contradiction', back:'Without explicit witness', eg:'Proving irrational numbers a, b exist such that aᵇ is rational.'},
+    {icon:'❌', name:'Counterexample', front:'Disprove ∀x P(x)', back:'Find single c where ¬P(c)', eg:'"All primes are odd" is refuted by single counterexample 2.'}
+  ]
+};
+
+function renderFlipCards(category){
+  const grid = document.getElementById('flipGrid');
+  grid.innerHTML = '';
+  const cards = logicDeck[category];
+  const topicCategoryMap = {
+    prop: 'prop_rules',
+    quant: 'quant_rules',
+    proofs: 'proof_techniques'
+  };
+  const topicId = topicCategoryMap[category] || 'prop_rules';
+  cards.forEach(card=>{
+    const el = document.createElement('div');
+    el.className = 'flip-card';
+    el.onclick = () => el.classList.toggle('flipped');
+    el.innerHTML = `
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon">${card.icon}</div>
+          <h4>${card.name}</h4>
+          <p style="font-family:'JetBrains Mono';font-size:.86rem;color:var(--cyan);margin-top:.4rem">${card.front}</p>
+          <span style="font-size:.72rem;color:var(--text-dim);margin-top:.6rem">Click to reveal derivation</span>
+        </div>
+        <div class="flip-back">
+          <h4>✅ ${card.name}</h4>
+          <p style="font-family:'JetBrains Mono';font-size:1.05rem;margin:.3rem 0;color:var(--gold)">${card.back}</p>
+          <p style="font-size:.8rem;color:var(--text);margin-top:.3rem">${card.eg}</p>
+          <div style="margin-top:.8rem" onclick="event.stopPropagation()">
+            <a href="topic.html?topic=${topicId}" target="_blank" class="topic-dive-btn" title="Open complete proof & logic guide in new page">
+              <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg> 📖 Deep Dive ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+}
+renderFlipCards('prop');
+
+function switchLogicTab(tab, btn){
+  document.querySelectorAll('.logic-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderFlipCards(tab);
+}
+
+/* ========== 10. COMPREHENSIVE 20-QUESTION EXAM QUIZ ========== */
+const quizData = [
+  {q:"Who coined the term 'Artificial Intelligence' at the 1956 Dartmouth Workshop?",o:["Alan Turing","John McCarthy","Marvin Minsky","Claude Shannon"],a:1,exp:"John McCarthy coined 'Artificial Intelligence' in his 1955 proposal for the 1956 Dartmouth College workshop."},
+  {q:"In the PEAS framework, what does the acronym stand for?",o:["Program, Environment, Algorithm, Sensors","Performance, Environment, Actuators, Sensors","Process, Environment, Architecture, Storage","Percept, Execution, Action, Strategy"],a:1,exp:"PEAS = Performance measure, Environment, Actuators, Sensors."},
+  {q:"What is the evaluation function for the A* search algorithm?",o:["f(n) = h(n)","f(n) = g(n)","f(n) = g(n) + h(n)","f(n) = g(n) × h(n)"],a:2,exp:"A* combines the exact path cost from the start node g(n) with the heuristic estimate to the goal h(n)."},
+  {q:"An admissible heuristic h(n) is defined as one that...",o:["Always overestimates the true cost","Never overestimates the true cost: 0 ≤ h(n) ≤ h*(n)","Is equal to zero for all nodes","Is strictly greater than the true cost"],a:1,exp:"Admissibility means h(n) is an optimistic estimate that never overestimates the true cost h*(n) to the goal."},
+  {q:"Which inference rule derives 'q' from premises 'p' and 'p → q'?",o:["Modus Tollens","Modus Ponens","Resolution","Hypothetical Syllogism"],a:1,exp:"Modus Ponens (affirming the antecedent): If p is true and p implies q, then q must be true."},
+  {q:"Which of the following search algorithms uses linear space O(b·d)?",o:["Standard A* Search","Iterative Deepening A* (IDA*)","Breadth-First Search (BFS)","SMA* with unbounded memory"],a:1,exp:"IDA* runs a sequence of depth-first searches bounded by f-cost cutoffs, requiring only linear space O(b·d)."},
+  {q:"In a fully observable environment, an intelligent agent...",o:["Requires internal state memory to infer unseen objects","Can directly access the complete state of the world at any time through sensors","Must continuously learn the environment's rules","Experiences sensory noise in every step"],a:1,exp:"Full observability gives complete, noiseless access to the current state, so no internal world model is required."},
+  {q:"Forward chaining is characterized as being...",o:["Data-driven, reasoning forward from facts to conclusions","Goal-driven, reasoning backward from hypothesis to sub-goals","Exclusively applicable to probabilistic reasoning","Unable to handle conflict resolution"],a:0,exp:"Forward chaining starts with known facts in working memory and triggers rules forward to derive new facts."},
+  {q:"According to De Morgan's Laws, what is the logical equivalence of ¬(p ∧ q)?",o:["¬p ∧ ¬q","¬p ∨ ¬q","p ∨ q","¬p → ¬q"],a:1,exp:"¬(p ∧ q) ≡ ¬p ∨ ¬q — the negation flips the conjunction into a disjunction."},
+  {q:"When memory is full in SMA*, which node does the algorithm drop?",o:["The root node","The deepest node","The shallowest, highest f-cost (worst) leaf node","A randomly selected node from closed set"],a:2,exp:"SMA* discards the shallowest, highest f-cost leaf node and backs up its value to the parent node."},
+  {q:"In Prolog, how is a rule formally structured?",o:["Head :- Body.","Body -> Head.","IF Condition THEN Action.","?- Query."],a:0,exp:"Prolog rules are Horn clauses written as 'Head :- Body.', meaning Head is true IF Body is true."},
+  {q:"What is the contrapositive of the conditional statement (p → q)?",o:["q → p","¬p → ¬q","¬q → ¬p","¬p ∨ q"],a:2,exp:"The contrapositive of (p → q) is (¬q → ¬p), and both are strictly logically equivalent."},
+  {q:"Which environment dimension means that current actions do not impact future decisions?",o:["Deterministic","Static","Episodic","Discrete"],a:2,exp:"In episodic environments, each interaction is independent; the agent's current action has no bearing on future episodes."},
+  {q:"What does Consistency (Monotonicity) in heuristics require?",o:["h(n) = 0 for all nodes","h(n) ≤ c(n,a,n') + h(n') [Triangle inequality]","h(n) > h*(n)","f(n) = g(n)"],a:1,exp:"Consistency requires h(n) ≤ c(n,a,n') + h(n'), guaranteeing that f-values along any path never decrease."},
+  {q:"What type of knowledge is described as 'knowing how' to execute procedures?",o:["Declarative Knowledge","Procedural Knowledge","Relational Knowledge","Inferential Knowledge"],a:1,exp:"Procedural knowledge ('knowing how') represents step-by-step algorithms, instructions, and executable rules."},
+  {q:"Which conflict resolution strategy avoids firing the same rule twice on the identical piece of data?",o:["Recency","Specificity","Refractory","Priority"],a:2,exp:"Refractory ensures that a rule cannot fire more than once on the exact same data, preventing infinite loops."},
+  {q:"Greedy Best-First Search prioritizes nodes using which evaluation function?",o:["f(n) = g(n)","f(n) = h(n)","f(n) = g(n) + h(n)","f(n) = c(s,a,s')"],a:1,exp:"Greedy Best-First search expands the node that looks closest to the goal based solely on the heuristic h(n)."},
+  {q:"How many components comprise a Learning Agent architecture?",o:["2 components","3 components","4 components (Learning, Performance, Critic, Problem Generator)","5 components"],a:2,exp:"A Learning Agent consists of 4 parts: Learning Element, Performance Element, Critic, and Problem Generator."},
+  {q:"The Resolution Refutation principle proves a statement S by...",o:["Assuming S is true and verifying it","Negating S, adding it to the knowledge base, and deriving a contradiction (empty clause □)","Converting S directly to Disjunctive Normal Form","Using forward chaining only"],a:1,exp:"Resolution refutation assumes ¬S and applies resolution until the empty clause □ (contradiction) is derived."},
+  {q:"Robert Kowalski summarized logic programming with which famous equation?",o:["AI = Architecture + Program","Algorithm = Logic + Control","Search = Cost + Heuristic","Knowledge = Information + Rules"],a:1,exp:"Kowalski's famous formula states: Algorithm = Logic + Control."}
+];
+
+let currentQ = 0, score = 0, answered = false;
+
+function startQuiz(){
+  currentQ = 0;
+  score = 0;
+  answered = false;
+  document.getElementById('quizScore').style.display = 'none';
+  document.getElementById('quizQuestion').style.display = 'block';
+  document.getElementById('quizOptions').style.display = 'flex';
+  document.getElementById('quizBarFill').parentElement.parentElement.style.display = 'flex';
+  showQuestion();
+}
+
+function showQuestion(){
+  answered = false;
+  const q = quizData[currentQ];
+  document.getElementById('quizCount').textContent = `${currentQ + 1} / ${quizData.length}`;
+  document.getElementById('quizBarFill').style.width = ((currentQ) / quizData.length * 100) + '%';
+  document.getElementById('quizQuestion').textContent = q.q;
+
+  const opts = document.getElementById('quizOptions');
+  opts.innerHTML = '';
+  q.o.forEach((opt, i)=>{
+    const btn = document.createElement('div');
+    btn.className = 'quiz-opt';
+    btn.innerHTML = `<span style="font-weight:700;color:var(--accent2);width:20px">${String.fromCharCode(65+i)}.</span> ${opt}`;
+    btn.onclick = () => selectAnswer(i);
+    opts.appendChild(btn);
+  });
+
+  const fb = document.getElementById('quizFeedback');
+  fb.className = 'quiz-feedback';
+  fb.style.display = 'none';
+  document.getElementById('quizNext').classList.remove('show');
+}
+
+function selectAnswer(i){
+  if(answered) return;
+  answered = true;
+  const q = quizData[currentQ];
+  const opts = document.querySelectorAll('.quiz-opt');
+
+  opts.forEach((o, j)=>{
+    o.classList.add('disabled');
+    if(j === q.a) o.classList.add('correct');
+    if(j === i && i !== q.a) o.classList.add('wrong');
+  });
+
+  const fb = document.getElementById('quizFeedback');
+  if(i === q.a){
+    score++;
+    fb.className = 'quiz-feedback show correct-fb';
+    fb.innerHTML = `<strong>✅ Correct!</strong> ${q.exp}`;
+  } else {
+    fb.className = 'quiz-feedback show wrong-fb';
+    fb.innerHTML = `<strong>❌ Incorrect.</strong> ${q.exp}`;
+  }
+  document.getElementById('quizNext').classList.add('show');
+}
+
+function nextQuestion(){
+  currentQ++;
+  if(currentQ >= quizData.length){
+    document.getElementById('quizQuestion').style.display = 'none';
+    document.getElementById('quizOptions').style.display = 'none';
+    document.getElementById('quizFeedback').style.display = 'none';
+    document.getElementById('quizNext').classList.remove('show');
+    document.getElementById('quizBarFill').style.width = '100%';
+
+    const sc = document.getElementById('quizScore');
+    sc.style.display = 'block';
+    document.getElementById('finalScore').textContent = `${score} / ${quizData.length}`;
+    const pct = (score / quizData.length) * 100;
+    document.getElementById('scoreMsg').innerHTML =
+      pct === 100 ? '🏆 <strong>PERFECT SCORE!</strong> You are 100% prepared to ace the AI exam!' :
+      pct >= 85 ? '🌟 <strong>Outstanding!</strong> Excellent understanding across all topics.' :
+      pct >= 70 ? '👍 <strong>Good Job!</strong> Review the few definitions and formulas you missed.' :
+      '📚 <strong>Keep Revising!</strong> Use the Master Glossary and Formula Sheet to brush up on weak areas.';
+  } else {
+    showQuestion();
+  }
+}
+startQuiz();
+</script>
+<!-- AI Exam Tutor Script -->
+<script src="ai_tutor.js"></script>
+</body>
+</html>
