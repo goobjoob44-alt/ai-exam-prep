@@ -1,7 +1,5 @@
 # 🧠 Artificial Intelligence - Complete Exam Revision Guide & Syllabus Summary
 
-This directory provides a consolidated, in-depth reference based on the course materials found in `C:\Users\Simanta\Downloads\Artificial Intelligence`.
-
 ---
 
 ## 📂 Overview of Course Files
